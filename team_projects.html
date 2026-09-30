@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>팀 프로젝트 제출 현황 · 클라우드컴퓨팅실습</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f6fa;
+    --surface: #ffffff;
+    --surface-2: #f8f9fc;
+    --border: #e3e7ee;
+    --text: #1b2130;
+    --muted: #5d6675;
+    --faint: #8a93a3;
+    --accent: #1e3a8a;
+    --accent-soft: #e6ecfb;
+    --accent-text: #1e3a8a;
+    --warn-bg: #fff6e5;
+    --warn-border: #f2d59a;
+    --warn-text: #8a5a00;
+    --ok-bg: #e9f7ef;
+    --ok-text: #1f6b3a;
+    --chip-bg: #eef1f6;
+    --link: #1d4ed8;
+    --shadow: 0 1px 2px rgba(20, 30, 50, .05), 0 8px 24px rgba(20, 30, 50, .06);
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Noto Sans KR", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, -apple-system, sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    word-break: keep-all;
+  }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+
+  /* ---------- header ---------- */
+  header.hero {
+    background: linear-gradient(135deg, #16265c 0%, #1e3a8a 55%, #2451b8 100%);
+    color: #fff;
+    padding: 44px 0 36px;
+  }
+  .eyebrow { margin: 0 0 8px; font-size: 13px; letter-spacing: .04em; opacity: .85; font-weight: 500; }
+  header h1 { margin: 0 0 10px; font-size: 30px; line-height: 1.25; font-weight: 800; }
+  header .desc { margin: 0; font-size: 14px; opacity: .88; max-width: 720px; }
+  .stats { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+  .stat {
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 10px;
+    padding: 10px 14px;
+    min-width: 120px;
+  }
+  .stat b { display: block; font-size: 22px; line-height: 1.1; font-weight: 800; }
+  .stat span { font-size: 12px; opacity: .85; }
+
+  /* ---------- sections ---------- */
+  section { margin: 28px 0; }
+  h2.sec {
+    font-size: 18px; font-weight: 800; margin: 0 0 12px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  h2.sec small { font-size: 12px; color: var(--faint); font-weight: 500; }
+
+  /* ---------- quick access table ---------- */
+  .quick {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .quick table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .quick th, .quick td { padding: 12px 14px; text-align: left; vertical-align: middle; border-bottom: 1px solid var(--border); }
+  .quick th { background: var(--surface-2); color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .02em; }
+  .quick tr:last-child td { border-bottom: 0; }
+  .quick td.url { max-width: 380px; }
+  .quick td.url a { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; word-break: break-all; }
+  .quick .actions { display: flex; gap: 6px; flex-wrap: wrap; }
+  .quick-foot { padding: 10px 14px; background: var(--surface-2); display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+
+  .badge {
+    display: inline-block; padding: 3px 10px; border-radius: 999px;
+    font-size: 12px; font-weight: 700; line-height: 1.5; white-space: nowrap;
+    background: var(--accent-soft); color: var(--accent-text);
+  }
+  .badge.unknown { background: var(--warn-bg); color: var(--warn-text); border: 1px solid var(--warn-border); }
+  .badge.file { background: var(--ok-bg); color: var(--ok-text); }
+  .badge.none { background: var(--chip-bg); color: var(--faint); }
+  .quick tr.missing td { color: var(--faint); background: #fbfcfe; }
+  .quick tr.missing td b { color: var(--muted); font-weight: 600; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    border: 1px solid var(--border); background: var(--surface);
+    color: var(--text); border-radius: 8px; padding: 6px 11px;
+    font-size: 13px; font-weight: 600; cursor: pointer; line-height: 1.3;
+    font-family: inherit; text-decoration: none; white-space: nowrap;
+  }
+  .btn:hover { background: var(--surface-2); text-decoration: none; }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn.primary:hover { background: #172e70; }
+  .btn.small { padding: 4px 9px; font-size: 12px; }
+  .btn svg { width: 14px; height: 14px; }
+  .btn.copied { background: var(--ok-bg); color: var(--ok-text); border-color: #bfe3cc; }
+
+  /* ---------- team cards ---------- */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    margin-bottom: 18px;
+    scroll-margin-top: 16px;
+  }
+  .card-head { display: flex; gap: 14px; align-items: flex-start; flex-wrap: wrap; }
+  .team-no {
+    flex: 0 0 auto;
+    width: 62px; height: 62px; border-radius: 14px;
+    background: var(--accent); color: #fff;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-weight: 800; line-height: 1;
+  }
+  .team-no b { font-size: 26px; }
+  .team-no span { font-size: 11px; margin-top: 3px; opacity: .85; font-weight: 600; }
+  .team-no.unknown { background: #b45309; }
+  .card-title { flex: 1 1 320px; min-width: 0; }
+  .card-title h3 { margin: 0 0 4px; font-size: 21px; font-weight: 800; line-height: 1.3; }
+  .card-title .tagline { margin: 0; color: var(--muted); font-size: 14px; }
+  .card-title .en { color: var(--faint); font-weight: 500; font-size: 14px; margin-left: 6px; }
+
+  .urlbox {
+    margin-top: 16px;
+    background: var(--surface-2);
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  }
+  .urlbox .label { font-size: 12px; color: var(--faint); font-weight: 700; letter-spacing: .03em; }
+  .urlbox .u { flex: 1 1 260px; min-width: 0; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; word-break: break-all; }
+  .urlbox.none { border-style: solid; background: var(--warn-bg); border-color: var(--warn-border); color: var(--warn-text); }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 28px; margin-top: 18px; }
+  .grid .full { grid-column: 1 / -1; }
+  .field h4 { margin: 0 0 6px; font-size: 12px; color: var(--faint); font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+  .field p { margin: 0; }
+  .field ul { margin: 0; padding-left: 18px; }
+  .field li { margin: 2px 0; }
+  .members { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    display: inline-block; background: var(--chip-bg); border-radius: 999px;
+    padding: 3px 11px; font-size: 13px; font-weight: 600;
+  }
+  .chip.lead { background: var(--accent-soft); color: var(--accent-text); }
+  .chip small { font-weight: 400; color: var(--faint); margin-left: 4px; font-size: 11px; }
+  .tech { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tech span { background: #fff; border: 1px solid var(--border); border-radius: 6px; padding: 2px 8px; font-size: 12px; font-weight: 600; color: var(--muted); }
+  .quote { border-left: 3px solid var(--accent); padding: 6px 12px; margin: 0; background: var(--surface-2); border-radius: 0 8px 8px 0; color: var(--text); font-size: 14px; }
+  .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 13px; }
+  .flow span { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 4px 10px; font-weight: 600; }
+  .flow i { color: var(--faint); font-style: normal; }
+  .levels { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; font-size: 12px; text-align: center; }
+  .levels div { border-radius: 8px; padding: 6px 4px; font-weight: 700; }
+  .levels b { display: block; font-size: 13px; }
+  .lv1 { background: #e9f7ef; color: #1f6b3a; }
+  .lv2 { background: #fff8dc; color: #8a6d00; }
+  .lv3 { background: #ffedd5; color: #9a4b00; }
+  .lv4 { background: #fee2e2; color: #991b1b; }
+  .submit-meta { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 13px; color: var(--muted); }
+  .submit-meta b { color: var(--text); }
+  .note { background: var(--warn-bg); border: 1px solid var(--warn-border); color: var(--warn-text); border-radius: 8px; padding: 8px 12px; font-size: 13px; margin-top: 6px; }
+
+  /* ---------- issues ---------- */
+  .issues { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px 24px; }
+  .issues ol { margin: 0; padding-left: 20px; }
+  .issues li { margin: 6px 0; }
+  .files table { width: 100%; border-collapse: collapse; font-size: 13px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .files th, .files td { padding: 9px 12px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+  .files th { background: var(--surface-2); color: var(--muted); font-size: 12px; }
+  .files tr:last-child td { border-bottom: 0; }
+  .files code { font-size: 12px; background: var(--chip-bg); padding: 1px 6px; border-radius: 4px; }
+  footer.foot { color: var(--faint); font-size: 12px; text-align: center; padding: 20px 0 40px; }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px);
+    background: #1b2130; color: #fff; padding: 10px 16px; border-radius: 10px; font-size: 13px;
+    opacity: 0; pointer-events: none; transition: all .2s ease; z-index: 50;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  .files .scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: var(--radius); }
+  .files table { min-width: 640px; }
+
+  @media (max-width: 720px) {
+    header h1 { font-size: 24px; }
+    .grid { grid-template-columns: 1fr; }
+    .card { padding: 18px; }
+    .levels { grid-template-columns: repeat(2, 1fr); }
+    /* 바로가기 표를 모바일에서는 카드 목록으로 */
+    .quick thead { display: none; }
+    .quick tr { display: block; padding: 12px 14px; border-bottom: 1px solid var(--border); }
+    .quick tr:last-child { border-bottom: 0; }
+    .quick td { display: block; padding: 2px 0; border: 0; }
+    .quick td.url { max-width: none; }
+    .quick td:nth-child(4)::before { content: "구성원 · "; color: var(--faint); font-size: 12px; }
+    .quick .actions { margin-top: 8px; }
+    .urlbox .btn { flex: 1 1 auto; justify-content: center; }
+  }
+  @media print {
+    body { background: #fff; }
+    header.hero { background: #1e3a8a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .card, .quick, .issues { box-shadow: none; break-inside: avoid; }
+    .btn, .quick-foot, .toast { display: none !important; }
+    a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 11px; color: #555; }
+    .urlbox a::after, .quick td.url a::after { content: ""; }
+  }
+
+  .ts { display:inline-flex; align-items:center; gap:8px; margin-top:14px; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.25); border-radius:999px; padding:5px 14px; font-size:13px; font-weight:600; }
+  .ts svg { width:14px; height:14px; }
+  .admin-tag { display:inline-block; background:#fde68a; color:#78350f; border-radius:6px; padding:2px 8px; font-size:12px; font-weight:800; margin-left:8px; vertical-align:middle; }
+  .memo { font-size:13px; color:var(--muted); }
+  .memo q { quotes: "“" "”"; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">KAIST 디지털금융 MBA · 클라우드컴퓨팅실습</p>
+    <h1>팀 프로젝트 제출 현황</h1>
+    <p class="desc">각 조가 제출한 팀 프로젝트 페이지와 아이디어 요약입니다. 조 이름을 누르면 상세로, URL을 누르면 팀 페이지로 이동합니다.</p>
+    <div class="ts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>정리 기준 2026년 9월 30일(수) 12:09 KST</div>
+    <div class="stats">
+      <div class="stat"><b>10</b><span>전체 조</span></div>
+      <div class="stat"><b>5</b><span>제출 (1·5·6·7·8조)</span></div>
+      <div class="stat"><b>5</b><span>미제출 (2·3·4·9·10조)</span></div>
+      <div class="stat"><b>4</b><span>제출 URL</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ================= 바로가기 ================= -->
+  <section id="quick">
+    <h2 class="sec">전체 조 현황 · 바로가기 <small>1~10조 · 링크는 새 탭으로 열립니다</small></h2>
+    <div class="quick">
+      <table>
+        <thead>
+          <tr><th style="width:70px">조</th><th>프로젝트</th><th>URL</th><th style="width:150px">구성원</th><th style="width:170px"></th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge">1조</span></td>
+            <td><b>숨은여행지도</b><br><span style="color:var(--muted);font-size:13px">관광빅데이터 역발상 여행 서비스</span></td>
+            <td class="url"><a href="https://kujae.github.io/hidden-travel-map/" target="_blank" rel="noopener">https://kujae.github.io/hidden-travel-map/</a></td>
+            <td style="font-size:13px">강재구·구대로·박주원·이강훈·이재원</td>
+            <td><div class="actions"><a class="btn primary small" href="https://kujae.github.io/hidden-travel-map/" target="_blank" rel="noopener">열기</a><button class="btn small copy" data-url="https://kujae.github.io/hidden-travel-map/">복사</button><a class="btn small" href="#team1">상세</a></div></td>
+          </tr>
+          <tr class="missing">
+            <td><span class="badge none">2조</span></td>
+            <td><b>미제출</b></td>
+            <td class="url">—</td>
+            <td style="font-size:13px">권태혁·노경수·박준우·박민영</td>
+            <td></td>
+          </tr>
+          <tr class="missing">
+            <td><span class="badge none">3조</span></td>
+            <td><b>미제출</b></td>
+            <td class="url">—</td>
+            <td style="font-size:13px">이새미·박건일·우동희·윤준기·홍동우</td>
+            <td></td>
+          </tr>
+          <tr class="missing">
+            <td><span class="badge none">4조</span></td>
+            <td><b>미제출</b></td>
+            <td class="url">—</td>
+            <td style="font-size:13px">손영훈·이재림·정윤수·김선경</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><span class="badge">5조</span></td>
+            <td><b>유튜버가 말한 종목, 그 뒤에 어떻게 됐나</b><br><span style="color:var(--muted);font-size:13px">Hindsight · 유튜브 언급 종목 사후 수익률</span></td>
+            <td class="url"><a href="https://hindsight-gold.vercel.app/" target="_blank" rel="noopener">https://hindsight-gold.vercel.app/</a></td>
+            <td style="font-size:13px">김지환·오선호·조인성·채재희·김현준</td>
+            <td><div class="actions"><a class="btn primary small" href="https://hindsight-gold.vercel.app/" target="_blank" rel="noopener">열기</a><button class="btn small copy" data-url="https://hindsight-gold.vercel.app/">복사</button><a class="btn small" href="#team5">상세</a></div></td>
+          </tr>
+          <tr>
+            <td><span class="badge">6조</span></td>
+            <td><b>FundFlow</b><br><span style="color:var(--muted);font-size:13px">Corporate Funding Intelligence Platform · DART 자금조달 이력</span></td>
+            <td class="url"><a href="https://fundflow-roan.vercel.app/#problem" target="_blank" rel="noopener">https://fundflow-roan.vercel.app/#problem</a></td>
+            <td style="font-size:13px">강현경·우지훈·이동영·전민찬</td>
+            <td><div class="actions"><a class="btn primary small" href="https://fundflow-roan.vercel.app/#problem" target="_blank" rel="noopener">열기</a><button class="btn small copy" data-url="https://fundflow-roan.vercel.app/#problem">복사</button><a class="btn small" href="#team6">상세</a></div></td>
+          </tr>
+          <tr>
+            <td><span class="badge">7조</span></td>
+            <td><b>금융시장 스트레스 모니터링 대시보드</b><br><span style="color:var(--muted);font-size:13px">환율·금리·주가·변동성 기반 위험 점수</span></td>
+            <td class="url"><span class="badge file">URL 없음 · 발표 자료(PPTX·DOCX) 제출</span></td>
+            <td style="font-size:13px">김종환·김태현·서수민·정혜지·송수원</td>
+            <td><div class="actions"><a class="btn small" href="#team7">상세</a></div></td>
+          </tr>
+          <tr>
+            <td><span class="badge">8조</span></td>
+            <td><b>금융규제통합조회 (가칭)</b><br><span style="color:var(--muted);font-size:13px">법령 개정·해석·비조치의견 통합 조회</span></td>
+            <td class="url"><a href="https://ellaamode.github.io/teamproject/" target="_blank" rel="noopener">https://ellaamode.github.io/teamproject/</a></td>
+            <td style="font-size:13px">양정모·양지선·이수정·김한룡·최은정</td>
+            <td><div class="actions"><a class="btn primary small" href="https://ellaamode.github.io/teamproject/" target="_blank" rel="noopener">열기</a><button class="btn small copy" data-url="https://ellaamode.github.io/teamproject/">복사</button><a class="btn small" href="#team8">상세</a></div></td>
+          </tr>
+          <tr class="missing">
+            <td><span class="badge none">9조</span></td>
+            <td><b>미제출</b></td>
+            <td class="url">—</td>
+            <td style="font-size:13px">이동주·주연경·박찬휘·신지호·이영선</td>
+            <td></td>
+          </tr>
+          <tr class="missing">
+            <td><span class="badge none">10조</span></td>
+            <td><b>미제출</b></td>
+            <td class="url">—</td>
+            <td style="font-size:13px">박지호·이강병·이상석·주재근</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="quick-foot">
+        <span>제출된 URL 4개를 한 번에 복사할 수 있습니다.</span>
+        <button class="btn small" id="copyAll">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          URL 전체 복사
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 조별 상세 ================= -->
+  <section id="teams">
+    <h2 class="sec">조별 상세 <small>1 · 5 · 6 · 7 · 8조</small></h2>
+
+    <!-- 1조 -->
+    <article class="card" id="team1">
+      <div class="card-head">
+        <div class="team-no"><b>1</b><span>조</span></div>
+        <div class="card-title">
+          <h3>숨은여행지도 <span class="en">Hidden Travel Map</span></h3>
+          <p class="tagline">관광빅데이터로 ‘사람들이 덜 가는 곳’을 먼저 찾아주는 역발상 여행 서비스</p>
+        </div>
+      </div>
+      <div class="urlbox">
+        <span class="label">URL</span>
+        <a class="u" href="https://kujae.github.io/hidden-travel-map/" target="_blank" rel="noopener">https://kujae.github.io/hidden-travel-map/</a>
+        <a class="btn primary" href="https://kujae.github.io/hidden-travel-map/" target="_blank" rel="noopener">페이지 열기 ↗</a>
+        <button class="btn copy" data-url="https://kujae.github.io/hidden-travel-map/">URL 복사</button>
+      </div>
+      <div class="grid">
+        <div class="field">
+          <h4>구성원 (5명)</h4>
+          <div class="members">
+            <span class="chip">강재구</span><span class="chip">구대로</span><span class="chip">박주원</span><span class="chip">이강훈</span><span class="chip">이재원</span>
+          </div>
+        </div>
+        <div class="field">
+          <h4>핵심 컨셉</h4>
+          <p class="quote">“사람은 적게 가지만, 볼 것은 있습니다.” — 방문량 하위 20%이면서 사진 있는 관광지가 3곳 이상인 지역을 추천 대상으로 선정</p>
+        </div>
+        <div class="field">
+          <h4>주요 기능</h4>
+          <ul>
+            <li>시군구별 방문량을 색 농도로 표시한 전국 지도</li>
+            <li>숨은 지역의 Ghost Index(숨은 정도)와 방문량 정보 제공</li>
+            <li>지역별 관광지 사진 카드</li>
+            <li>테마별 검색</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>데이터 출처</h4>
+          <ul>
+            <li>한국관광공사 관광빅데이터</li>
+            <li>TourAPI (국문 관광정보 서비스)</li>
+            <li>SGIS 행정구역경계 API</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>기술 스택</h4>
+          <div class="tech"><span>Python</span><span>FastAPI</span><span>PostgreSQL / Supabase</span><span>React</span><span>Leaflet</span><span>Vercel</span><span>Render</span></div>
+        </div>
+        <div class="field">
+          <h4>개발 일정</h4>
+          <div class="flow"><span>5주차 데이터 연결</span><i>→</i><span>6주차 백엔드</span><i>→</i><span>7주차 화면·배포</span><i>→</i><span>8주차 최종 발표</span></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 5조 -->
+    <article class="card" id="team5">
+      <div class="card-head">
+        <div class="team-no"><b>5</b><span>조</span></div>
+        <div class="card-title">
+          <h3>유튜버가 말한 종목, 그 뒤에 어떻게 됐나 <span class="en">Hindsight</span></h3>
+          <p class="tagline">주식·코인 유튜브 영상이 언급한 종목의 이후 주가 흐름을 데이터로 보여주는 서비스</p>
+        </div>
+      </div>
+      <div class="urlbox">
+        <span class="label">URL</span>
+        <a class="u" href="https://hindsight-gold.vercel.app/" target="_blank" rel="noopener">https://hindsight-gold.vercel.app/</a>
+        <a class="btn primary" href="https://hindsight-gold.vercel.app/" target="_blank" rel="noopener">페이지 열기 ↗</a>
+        <button class="btn copy" data-url="https://hindsight-gold.vercel.app/">URL 복사</button>
+      </div>
+      <div class="grid">
+        <div class="field">
+          <h4>구성원 (5명)</h4>
+          <div class="members">
+            <span class="chip">김지환</span><span class="chip">오선호</span><span class="chip">조인성</span><span class="chip">채재희</span><span class="chip">김현준</span>
+          </div>
+        </div>
+        <div class="field">
+          <h4>해결하려는 문제</h4>
+          <p>유튜브 영상으로 주식을 접하는 시청자는 많지만, 영상에서 언급된 종목이 그 뒤 실제로 어떤 수익률을 냈는지 확인할 방법이 없음</p>
+        </div>
+        <div class="field">
+          <h4>주요 화면 (3가지)</h4>
+          <ul>
+            <li><b>이번 주 언급 급증</b> — 최근 언급이 늘어난 종목과 과거 반응</li>
+            <li><b>언급 뒤에</b> — 5·20·60거래일 수익률 분포, 시장 대비 초과수익</li>
+            <li><b>종목 타임라인</b> — 주가 차트 위에 언급 시점 표시</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>데이터 출처</h4>
+          <ul>
+            <li>YouTube Data API (20개 채널, 최근 1년)</li>
+            <li>DART (상장사 정보)</li>
+            <li>공공데이터포털 · Yahoo · 업비트 (시세·지수)</li>
+          </ul>
+        </div>
+        <div class="field full">
+          <h4>특징</h4>
+          <p>공개 API만 사용 · 채널을 A·B·C로 익명화하여 특정 유튜버에 대한 개인 평가를 피함</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- 6조 -->
+    <article class="card" id="team6">
+      <div class="card-head">
+        <div class="team-no"><b>6</b><span>조</span></div>
+        <div class="card-title">
+          <h3>FundFlow <span class="en">Corporate Funding Intelligence Platform</span></h3>
+          <p class="tagline">DART 공시 데이터를 수집·정제해 국내 상장기업의 자금조달 이력(CB·EB·BW·회사채·유상증자)을 한 곳에서 검색·비교하는 웹 서비스</p>
+        </div>
+      </div>
+      <div class="urlbox">
+        <span class="label">URL</span>
+        <a class="u" href="https://fundflow-roan.vercel.app/#problem" target="_blank" rel="noopener">https://fundflow-roan.vercel.app/#problem</a>
+        <a class="btn primary" href="https://fundflow-roan.vercel.app/#problem" target="_blank" rel="noopener">페이지 열기 ↗</a>
+        <button class="btn copy" data-url="https://fundflow-roan.vercel.app/#problem">URL 복사</button>
+      </div>
+      <div class="grid">
+        <div class="field">
+          <h4>구성원 (4명 · Team FundFlow)</h4>
+          <div class="members">
+            <span class="chip">강현경 <small>20259023</small></span><span class="chip">우지훈 <small>20259265</small></span><span class="chip">이동영 <small>20259305</small></span><span class="chip">전민찬 <small>20259392</small></span>
+          </div>
+        </div>
+        <div class="field">
+          <h4>해결하려는 문제</h4>
+          <ul>
+            <li><b>정보 분산</b> — CB·EB·BW·회사채·유상증자 정보가 개별 공시에 흩어져 있음</li>
+            <li><b>수작업 정리</b> — 투자자·애널리스트가 공시를 직접 열어 조건을 정리해야 함</li>
+            <li><b>비교의 어려움</b> — 기업별·기간별·유형별 패턴을 동시에 비교하기 어려움</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>주요 기능</h4>
+          <ul>
+            <li>기업명 / 종목코드 검색</li>
+            <li>자금조달 유형별 필터 (CB · EB · BW · Bond · Equity)</li>
+            <li>시계열 Funding History, 기간별 발행 이벤트 조회</li>
+            <li>유형별 발행금액 집계·비교, 시장 Dashboard</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>데이터 출처 · 기술 스택</h4>
+          <p style="margin-bottom:8px">금융감독원 DART Open API (기업 정보, 공시 데이터)</p>
+          <div class="tech"><span>Python</span><span>FastAPI</span><span>PostgreSQL (Supabase)</span><span>React</span><span>Vercel</span></div>
+        </div>
+        <div class="field full">
+          <h4>개발 일정</h4>
+          <div class="flow"><span>4~5주차 DB 설계 · 수집 구조</span><i>→</i><span>6주차 DART API 통합</span><i>→</i><span>7~8주차 검색 기능 · 배포</span></div>
+        </div>
+      </div>
+    </article>
+    <!-- 7조 -->
+    <article class="card" id="team7">
+      <div class="card-head">
+        <div class="team-no"><b>7</b><span>조</span></div>
+        <div class="card-title">
+          <h3>금융시장 스트레스 모니터링 대시보드</h3>
+          <p class="tagline">환율·금리·주가·변동성 지표를 활용해 금융시장의 위험 수준을 0~100점과 4단계로 보여주는 웹 대시보드</p>
+        </div>
+      </div>
+      <div class="urlbox none">
+        <span class="label">URL</span>
+        <span class="u" style="font-family:inherit;font-size:14px">웹 페이지 URL 없음 — 아이디어 발표 자료(PPTX · DOCX)로 제출</span>
+        <span class="badge file">파일 제출</span>
+      </div>
+      <div class="grid">
+        <div class="field">
+          <h4>구성원 (5명)</h4>
+          <div class="members">
+            <span class="chip">김종환</span><span class="chip">김태현</span><span class="chip">서수민</span><span class="chip">정혜지</span><span class="chip">송수원</span>
+          </div>
+        </div>
+        <div class="field">
+          <h4>해결하려는 문제</h4>
+          <p>금융시장 상황을 보려면 환율·금리·주가·VIX를 각각 확인해야 하고, 개별 숫자만으로는 현재 시장이 얼마나 불안한지 판단하기 어려움</p>
+        </div>
+        <div class="field">
+          <h4>스트레스 점수 산식 (Rule-based)</h4>
+          <p>각 지표 0~25점 × 4개 = <b>0~100점</b> (1개월 변화 기준)</p>
+          <ul>
+            <li>USD/KRW — 1개월 상승률 ↑ 스트레스 ↑</li>
+            <li>S&amp;P 500 — 1개월 하락률 ↑ 스트레스 ↑</li>
+            <li>美 10년물 — 1개월 변화폭(%p) 클수록 ↑</li>
+            <li>VIX — 현재 수준이 높을수록 ↑</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>위험 단계</h4>
+          <div class="levels">
+            <div class="lv1"><b>정상</b>0–24</div>
+            <div class="lv2"><b>주의</b>25–49</div>
+            <div class="lv3"><b>경계</b>50–74</div>
+            <div class="lv4"><b>위험</b>75–100</div>
+          </div>
+          <p style="margin-top:8px;font-size:13px;color:var(--muted)">화면 구성: ① 지표 현황 ② 변화율(전일·1개월·3개월) ③ 스트레스 점수 ④ 데이터 출처</p>
+        </div>
+        <div class="field">
+          <h4>구현 구조</h4>
+          <div class="flow"><span>Yahoo Finance · FRED</span><i>→</i><span>FastAPI (Render)</span><i>→</i><span>PostgreSQL (Supabase)</span><i>→</i><span>React / HTML·JS (Vercel)</span></div>
+          <p style="margin-top:6px;font-size:13px;color:var(--muted)">일별 데이터를 Supabase에 저장해 변화율 계산·추이 차트 구현</p>
+        </div>
+        <div class="field">
+          <h4>대상 사용자</h4>
+          <p>금융시장 상황을 간단히 파악하려는 일반 투자자 · 시장 관심자</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- 8조 -->
+    <article class="card" id="team8">
+      <div class="card-head">
+        <div class="team-no"><b>8</b><span>조</span></div>
+        <div class="card-title">
+          <h3>금융규제통합조회 <span class="en">(가칭)</span></h3>
+          <p class="tagline">금융관계법령의 개정, 법령해석, 비조치의견을 업무 카테고리 하나로 모아서 봅니다.</p>
+        </div>
+      </div>
+      <div class="urlbox">
+        <span class="label">URL</span>
+        <a class="u" href="https://ellaamode.github.io/teamproject/" target="_blank" rel="noopener">https://ellaamode.github.io/teamproject/</a>
+        <a class="btn primary" href="https://ellaamode.github.io/teamproject/" target="_blank" rel="noopener">페이지 열기 ↗</a>
+        <button class="btn copy" data-url="https://ellaamode.github.io/teamproject/">URL 복사</button>
+      </div>
+      <div class="grid">
+        <div class="field">
+          <h4>구성원 (5명)</h4>
+          <div class="members">
+            <span class="chip">양정모</span><span class="chip">양지선</span><span class="chip">이수정</span><span class="chip">김한룡</span><span class="chip">최은정</span>
+          </div>
+        </div>
+        <div class="field">
+          <h4>목적</h4>
+          <p>컴플라이언스 부서로 전달하기 전에, 업무 담당자가 최신 규제 현황을 스스로 검토·이해할 수 있는 도구</p>
+        </div>
+        <div class="field">
+          <h4>주요 기능</h4>
+          <ul>
+            <li>법제처 · 국민참여입법센터 · 금융규제/법령해석포털 세 곳의 정보를 단일 화면으로 통합</li>
+            <li>업무 카테고리별 필터링</li>
+            <li>조문 개정 이력, 법령해석 사례, 비조치의견, 입법예고 통합 제공</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>데이터 출처</h4>
+          <ul>
+            <li>법제처 국가법령정보 API</li>
+            <li>국민참여입법센터 API</li>
+            <li>금융규제·법령해석포털 (REST 호출)</li>
+          </ul>
+        </div>
+        <div class="field full">
+          <h4>기술 스택</h4>
+          <div class="tech"><span>FastAPI (Render)</span><span>React (Vercel)</span><span>PostgreSQL (Supabase)</span><span>OpenSearch (AWS)</span></div>
+        </div>
+      </div>
+    </article>
+
+  </section>
+
+  <footer class="foot">
+    정리 기준 2026-09-30 12:09 KST · 각 팀 페이지 내용은 이 시각 기준이며, 이후 팀에서 페이지를 수정하면 달라질 수 있습니다.
+  </footer>
+</div>
+
+<div class="toast" id="toast">복사되었습니다</div>
+
+<script>
+  (function () {
+    var toast = document.getElementById('toast');
+    var timer;
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(timer);
+      timer = setTimeout(function () { toast.classList.remove('show'); }, 1600);
+    }
+    function copyText(text, btn) {
+      var done = function () {
+        showToast('URL이 복사되었습니다');
+        if (btn) {
+          var orig = btn.textContent;
+          btn.classList.add('copied');
+          btn.textContent = '복사됨 ✓';
+          setTimeout(function () { btn.classList.remove('copied'); btn.textContent = orig; }, 1400);
+        }
+      };
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(done, function () { fallback(text, done); });
+      } else {
+        fallback(text, done);
+      }
+    }
+    function fallback(text, done) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.top = '-1000px';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) { showToast('복사에 실패했습니다. 직접 선택해 복사해 주세요.'); }
+      document.body.removeChild(ta);
+    }
+    document.querySelectorAll('button.copy').forEach(function (b) {
+      b.addEventListener('click', function () { copyText(b.getAttribute('data-url'), b); });
+    });
+    var all = document.getElementById('copyAll');
+    if (all) {
+      all.addEventListener('click', function () {
+        var lines = [
+          '1조 숨은여행지도: https://kujae.github.io/hidden-travel-map/',
+          '5조 유튜버가 말한 종목, 그 뒤에 어떻게 됐나: https://hindsight-gold.vercel.app/',
+          '6조 FundFlow: https://fundflow-roan.vercel.app/#problem',
+          '8조 금융규제통합조회: https://ellaamode.github.io/teamproject/'
+        ];
+        copyText(lines.join('\n'), null);
+      });
+    }
+  })();
+</script>
+</body>
+</html>
