@@ -232,6 +232,19 @@
   .admin-tag { display:inline-block; background:#fde68a; color:#78350f; border-radius:6px; padding:2px 8px; font-size:12px; font-weight:800; margin-left:8px; vertical-align:middle; }
   .memo { font-size:13px; color:var(--muted); }
   .memo q { quotes: "“" "”"; }
+
+  /* 첨부파일 목록 */
+  .filebox { margin-top: 16px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; }
+  .filebox .label { display:block; font-size: 12px; color: var(--faint); font-weight: 700; letter-spacing: .03em; margin-bottom: 6px; }
+  .file-item { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 7px 0; border-top: 1px solid var(--border); }
+  .file-item:first-of-type { border-top: 0; }
+  .ftype { flex: 0 0 auto; display: inline-block; min-width: 46px; text-align: center; font-size: 11px; font-weight: 800; letter-spacing: .04em; padding: 3px 7px; border-radius: 6px; color: #fff; }
+  .ftype.pptx { background: #c2410c; } .ftype.docx { background: #1d4ed8; } .ftype.pdf { background: #b91c1c; } .ftype.html { background: #047857; }
+  .fname { flex: 1 1 200px; min-width: 0; font-size: 14px; }
+  .fname small { color: var(--faint); font-size: 12px; margin-left: 6px; }
+  .file-item .actions { display: flex; gap: 6px; }
+  .quick .flinks { margin-top: 6px; font-size: 12px; }
+  .quick .flinks a { margin-right: 8px; white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -241,11 +254,11 @@
     <p class="eyebrow">KAIST 디지털금융 MBA · 클라우드컴퓨팅실습</p>
     <h1>팀 프로젝트 제출 현황</h1>
     <p class="desc">각 조가 제출한 팀 프로젝트 페이지와 아이디어 요약입니다. 조 이름을 누르면 상세로, URL을 누르면 팀 페이지로 이동합니다.</p>
-    <div class="ts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>정리 기준 2026년 9월 30일(수) 15:23 KST</div>
+    <div class="ts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>정리 기준 2026년 9월 30일(수) 15:34 KST</div>
     <div class="stats">
       <div class="stat"><b>10</b><span>전체 조</span></div>
-      <div class="stat"><b>7</b><span>제출 (1·4·5·6·7·8·10조)</span></div>
-      <div class="stat"><b>3</b><span>미제출 (2·3·9조)</span></div>
+      <div class="stat"><b>8</b><span>제출 (1·4·5·6·7·8·9·10조)</span></div>
+      <div class="stat"><b>2</b><span>미제출 (2·3조)</span></div>
       <div class="stat"><b>5</b><span>제출 URL</span></div>
     </div>
   </div>
@@ -307,7 +320,7 @@
           <tr>
             <td><span class="badge">7조</span></td>
             <td><b>금융시장 스트레스 모니터링 대시보드</b><br><span style="color:var(--muted);font-size:13px">환율·금리·주가·변동성 기반 위험 점수</span></td>
-            <td class="url"><span class="badge file">URL 없음 · 발표 자료(PPTX·DOCX) 제출</span></td>
+            <td class="url"><span class="badge file">URL 없음 · 파일 제출</span><div class="flinks"><a href="attachments/team07_idea_pitch_FN.pptx" download>PPTX 내려받기</a><a href="attachments/team07_idea_description_v3.docx" download>DOCX 내려받기</a></div></td>
             <td style="font-size:13px">김종환·김태현·서수민·정혜지·송수원</td>
             <td><div class="actions"><a class="btn small" href="#team7">상세</a></div></td>
           </tr>
@@ -318,17 +331,17 @@
             <td style="font-size:13px">양정모·양지선·이수정·김한룡·최은정</td>
             <td><div class="actions"><a class="btn primary small" href="https://ellaamode.github.io/teamproject/" target="_blank" rel="noopener">열기</a><button class="btn small copy" data-url="https://ellaamode.github.io/teamproject/">복사</button><a class="btn small" href="#team8">상세</a></div></td>
           </tr>
-          <tr class="missing">
-            <td><span class="badge none">9조</span></td>
-            <td><b>미제출</b></td>
-            <td class="url">—</td>
+          <tr>
+            <td><span class="badge">9조</span></td>
+            <td><b>오늘 뭐 하지? 같이 갈래?</b><br><span style="color:var(--muted);font-size:13px">Activity First · 활동 탐색 + 모임 연결 소셜 서비스</span></td>
+            <td class="url"><span class="badge file">URL 없음 · 파일 제출</span><div class="flinks"><a href="attachments/team09_idea_pitch_v1.0_20260930.pdf" target="_blank" rel="noopener">PDF 열기</a><a href="attachments/team09_activity-first-mockup.html" target="_blank" rel="noopener">목업 HTML 열기</a></div></td>
             <td style="font-size:13px">이동주·주연경·박찬휘·신지호·이영선</td>
-            <td></td>
+            <td><div class="actions"><a class="btn small" href="#team9">상세</a></div></td>
           </tr>
           <tr>
             <td><span class="badge">10조</span></td>
             <td><b>캠핑 플래너</b><br><span style="color:var(--muted);font-size:13px">날씨와 캠핑장 정보를 한 화면에서 연결하는 캠핑 계획 도우미</span></td>
-            <td class="url"><span class="badge file">URL 없음 · 소개 자료(HTML) 제출</span></td>
+            <td class="url"><span class="badge file">URL 없음 · 파일 제출</span><div class="flinks"><a href="attachments/team10_camping_planner_project_intro.html" target="_blank" rel="noopener">소개 HTML 열기</a></div></td>
             <td style="font-size:13px">박지호·이강병·이상석·주재근</td>
             <td><div class="actions"><a class="btn small" href="#team10">상세</a></div></td>
           </tr>
@@ -346,7 +359,7 @@
 
   <!-- ================= 조별 상세 ================= -->
   <section id="teams">
-    <h2 class="sec">조별 상세 <small>1 · 4 · 5 · 6 · 7 · 8 · 10조</small></h2>
+    <h2 class="sec">조별 상세 <small>1 · 4 · 5 · 6 · 7 · 8 · 9 · 10조</small></h2>
 
     <!-- 1조 -->
     <article class="card" id="team1">
@@ -574,10 +587,10 @@
           <p class="tagline">환율·금리·주가·변동성 지표를 활용해 금융시장의 위험 수준을 0~100점과 4단계로 보여주는 웹 대시보드</p>
         </div>
       </div>
-      <div class="urlbox none">
-        <span class="label">URL</span>
-        <span class="u" style="font-family:inherit;font-size:14px">웹 페이지 URL 없음 — 아이디어 발표 자료(PPTX · DOCX)로 제출</span>
-        <span class="badge file">파일 제출</span>
+      <div class="filebox">
+        <span class="label">제출 파일</span>
+        <div class="file-item"><span class="ftype pptx">PPTX</span><span class="fname">아이디어 발표 슬라이드<small>2장 · FN</small></span><div class="actions"><a class="btn small" href="attachments/team07_idea_pitch_FN.pptx" download>내려받기</a></div></div>
+        <div class="file-item"><span class="ftype docx">DOCX</span><span class="fname">팀 프로젝트 아이디어 설명자료<small>v3</small></span><div class="actions"><a class="btn small" href="attachments/team07_idea_description_v3.docx" download>내려받기</a></div></div>
       </div>
       <div class="grid">
         <div class="field">
@@ -671,6 +684,67 @@
       </div>
     </article>
 
+    <!-- 9조 -->
+    <article class="card" id="team9">
+      <div class="card-head">
+        <div class="team-no"><b>9</b><span>조</span></div>
+        <div class="card-title">
+          <h3>오늘 뭐 하지? 같이 갈래? <span class="en">Activity First</span></h3>
+          <p class="tagline">날짜와 지역, 취향에 맞는 활동을 찾고 함께할 사람과 연결되는 소셜 서비스</p>
+        </div>
+      </div>
+      <div class="filebox">
+        <span class="label">제출 파일</span>
+        <div class="file-item"><span class="ftype pdf">PDF</span><span class="fname">아이디어 피치 자료<small>v1.0 · 2026-09-30 · 2장</small></span><div class="actions"><a class="btn small primary" href="attachments/team09_idea_pitch_v1.0_20260930.pdf" target="_blank" rel="noopener">열기</a><a class="btn small" href="attachments/team09_idea_pitch_v1.0_20260930.pdf" download>내려받기</a></div></div>
+        <div class="file-item"><span class="ftype html">HTML</span><span class="fname">화면 목업 「같이 갈래?」<small>브라우저에서 바로 실행</small></span><div class="actions"><a class="btn small primary" href="attachments/team09_activity-first-mockup.html" target="_blank" rel="noopener">열기</a><a class="btn small" href="attachments/team09_activity-first-mockup.html" download>내려받기</a></div></div>
+      </div>
+      <div class="grid">
+        <div class="field">
+          <h4>구성원 (5명)</h4>
+          <div class="members">
+            <span class="chip">이동주 <small>20259307</small></span><span class="chip">주연경 <small>20259428</small></span><span class="chip">박찬휘 <small>20269186</small></span><span class="chip">신지호 <small>20269224</small></span><span class="chip">이영선 <small>20269310</small></span>
+          </div>
+        </div>
+        <div class="field">
+          <h4>핵심 사용자 흐름</h4>
+          <div class="flow"><span>① 조건 선택<br><small style="font-weight:400;color:var(--muted)">날짜 · 지역 · 취향</small></span><i>→</i><span>② 활동 둘러보기<br><small style="font-weight:400;color:var(--muted)">공연 · 축제 · 러닝 · 전시</small></span><i>→</i><span>③ 함께할 사람 찾기<br><small style="font-weight:400;color:var(--muted)">모임 참여 · 직접 모집</small></span></div>
+        </div>
+        <div class="field">
+          <h4>해결하려는 문제</h4>
+          <ul>
+            <li><b>정보가 흩어져 있다</b> — 공연·축제 정보가 여러 곳에 있어 일정 비교가 어려움</li>
+            <li><b>같이 갈 사람이 없다</b> — 마음에 드는 활동을 찾아도 결국 미루게 됨</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>주요 기능</h4>
+          <ul>
+            <li><b>활동 탐색</b> — 날짜·지역·유형으로 활동 검색</li>
+            <li><b>모임 개설·참여</b> — 활동별 기존 모임 참여 또는 직접 시간을 정해 모집</li>
+            <li><b>데이터 분석</b> — 수집한 행사의 지역별·유형별 분포</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>데이터 출처</h4>
+          <ul>
+            <li>한국관광공사 TourAPI — 행사정보조회 (축제·행사)</li>
+            <li>KOPIS 공연예술통합전산망 (예술경영지원센터) — 공연</li>
+            <li>한국문화정보원 — 공연·전시 정보</li>
+            <li>사용자 모임 등록 — 러닝 등 직접 계획하는 활동</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>구현 구조</h4>
+          <div class="flow"><span>공공데이터 API</span><i>→</i><span>FastAPI (Render)</span><i>→</i><span>PostgreSQL (Supabase)</span><i>→</i><span>React (Vercel)</span></div>
+          <p style="margin-top:6px;font-size:13px;color:var(--muted)">행사·축제·체육 일정을 일 1회 배치 수집 · activities · meetups · participants 테이블 · 탐색·상세·모임 화면과 운영 대시보드</p>
+        </div>
+        <div class="field full">
+          <h4>한 줄 컨셉</h4>
+          <p class="quote">“이번 주말에 뭐 하지?” → “이거 같이 갈래?”</p>
+        </div>
+      </div>
+    </article>
+
     <!-- 10조 -->
     <article class="card" id="team10">
       <div class="card-head">
@@ -680,10 +754,9 @@
           <p class="tagline">날씨와 캠핑장 정보를 한 화면에서 연결하는 캠핑 계획 도우미 — 장소·일정·시설·날씨를 빠르게 비교하는 웹 서비스</p>
         </div>
       </div>
-      <div class="urlbox none">
-        <span class="label">URL</span>
-        <span class="u" style="font-family:inherit;font-size:14px">웹 페이지 URL 없음 — 프로젝트 소개 자료(HTML, 3페이지)로 제출</span>
-        <span class="badge file">파일 제출</span>
+      <div class="filebox">
+        <span class="label">제출 파일</span>
+        <div class="file-item"><span class="ftype html">HTML</span><span class="fname">프로젝트 소개 자료 「캠핑 플래너」<small>3페이지 · 브라우저에서 바로 실행</small></span><div class="actions"><a class="btn small primary" href="attachments/team10_camping_planner_project_intro.html" target="_blank" rel="noopener">열기</a><a class="btn small" href="attachments/team10_camping_planner_project_intro.html" download>내려받기</a></div></div>
       </div>
       <div class="grid">
         <div class="field">
@@ -735,7 +808,7 @@
   </section>
 
   <footer class="foot">
-    정리 기준 2026-09-30 15:23 KST · 각 팀 페이지 내용은 이 시각 기준이며, 이후 팀에서 페이지를 수정하면 달라질 수 있습니다.
+    정리 기준 2026-09-30 15:34 KST · 각 팀 페이지 내용은 이 시각 기준이며, 이후 팀에서 페이지를 수정하면 달라질 수 있습니다.<br>7·9·10조 제출 파일은 이 문서와 같은 폴더의 <code>attachments/</code>에 있습니다.
   </footer>
 </div>
 
