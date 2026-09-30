@@ -1,0 +1,657 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>캠핑 플래너 팀 프로젝트 소개</title>
+<style>
+  :root{
+    --ink:#17211a;
+    --muted:#627066;
+    --line:#dce6de;
+    --green:#2f6b48;
+    --green2:#eaf4ed;
+    --sand:#f7f4eb;
+    --blue:#315f86;
+    --warn:#fff7df;
+    --code:#15231a;
+  }
+  *{box-sizing:border-box}
+  html{
+    scroll-behavior:smooth;
+    scroll-snap-type:y mandatory;
+    overscroll-behavior-y:none;
+    height:100%;
+  }
+  body{
+    margin:0;
+    height:100%;
+    font-family: Pretendard, "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    color:var(--ink);
+    background:#eef2ee;
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+  .doc{width:100%;margin:0}
+  .page{
+    background:white;
+    width:100vw;
+    height:100vh;
+    min-height:100vh;
+    padding:clamp(32px,4.3vh,64px) clamp(42px,5.2vw,100px) clamp(38px,4.8vh,70px);
+    margin:0;
+    box-shadow:none;
+    border-radius:0;
+    position:relative;
+    overflow:hidden;
+    scroll-snap-align:start;
+    scroll-snap-stop:always;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+  }
+  .page::after{
+    content:attr(data-page);
+    position:absolute;
+    right:clamp(42px,5.2vw,100px);
+    bottom:22px;
+    color:#8a978d;
+    font-size:11px;
+    letter-spacing:.08em;
+  }
+  .eyebrow{font-size:clamp(12px,0.75vw,15px);font-weight:800;color:var(--green);letter-spacing:.14em;text-transform:uppercase}
+  h1{font-size:clamp(38px,3vw,58px);line-height:1.15;margin:10px 0 14px;letter-spacing:-.04em}
+  h2{font-size:clamp(28px,2vw,40px);line-height:1.25;margin:0 0 14px;letter-spacing:-.03em}
+  h3{font-size:clamp(18px,1.15vw,23px);margin:clamp(14px,2vh,22px) 0 9px;letter-spacing:-.02em}
+  p{margin:0 0 10px}
+  .lead{font-size:clamp(18px,1.2vw,24px);color:#39473d;max-width:850px}
+  .muted{color:var(--muted)}
+  .tagrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+  .tag{font-size:clamp(12px,.8vw,15px);font-weight:700;padding:7px 11px;border-radius:999px;background:var(--green2);color:var(--green)}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(26px,3vw,56px);align-items:center;margin-top:clamp(16px,2vh,24px)}
+  .hero-card{
+    background:linear-gradient(145deg,#f4f8f4,#edf4ef);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:22px;
+  }
+  .problem-grid,.feature-grid,.arch-grid,.api-grid{display:grid;gap:12px}
+  .problem-grid{grid-template-columns:repeat(3,1fr);margin-top:24px}
+  .feature-grid{grid-template-columns:repeat(2,1fr)}
+  .card{border:1px solid var(--line);border-radius:14px;padding:clamp(13px,1.15vw,20px);background:#fff;font-size:clamp(12.5px,.86vw,16px)}
+  .card strong{display:block;margin-bottom:5px}
+  .num{font-size:12px;color:var(--green);font-weight:900;letter-spacing:.08em}
+  .flow{
+    display:grid;
+    grid-template-columns:1fr auto 1fr auto 1fr;
+    gap:10px;align-items:center;margin-top:18px
+  }
+  .node{border:1px solid var(--line);border-radius:14px;padding:clamp(11px,1vw,16px);text-align:center;background:#fff;font-size:clamp(12px,.8vw,15px)}
+  .arrow{color:#91a398;font-weight:900;font-size:20px}
+  .note{background:var(--warn);border:1px solid #f0df9c;border-radius:12px;padding:clamp(10px,.9vw,15px) clamp(13px,1.1vw,18px);font-size:clamp(11.5px,.78vw,14.5px)}
+  .architecture{margin-top:15px;border:1px solid var(--line);border-radius:18px;padding:17px;background:#fbfcfb}
+  .arch-grid{grid-template-columns:1fr 1fr 1fr;align-items:stretch}
+  .arch-box{padding:15px;border-radius:13px;border:1px solid var(--line);background:white}
+  .arch-box b{display:block;font-size:16px;margin-bottom:5px}
+  .arch-box small{color:var(--muted)}
+  table{width:100%;border-collapse:collapse;font-size:clamp(10.5px,.7vw,13.5px);margin:7px 0 11px}
+  th,td{border:1px solid #dce4de;padding:7px 8px;vertical-align:top}
+  th{background:#f4f7f4;text-align:left}
+  code,pre{font-family:"Cascadia Code","SFMono-Regular",Consolas,monospace}
+  .endpoint{font-family:Consolas,monospace;font-size:11px;background:#eff5f0;color:#1d5334;padding:6px 8px;border-radius:7px;display:inline-block;word-break:break-all}
+  pre{
+    white-space:pre-wrap;word-break:break-word;
+    background:var(--code);color:#e8f4eb;border-radius:12px;
+    padding:clamp(9px,.8vw,13px);font-size:clamp(9.5px,.64vw,12px);line-height:1.4;margin:7px 0 10px;
+  }
+  .use-list{margin:6px 0 0;padding-left:18px;font-size:clamp(11.5px,.75vw,14px)}
+  .use-list li{margin:4px 0}
+  .pill{display:inline-block;background:#eef3f7;color:var(--blue);border-radius:999px;padding:3px 8px;font-size:10.5px;font-weight:700;margin:2px 3px 2px 0}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .source{font-size:clamp(9.5px,.62vw,11.5px);color:#7b877e;border-top:1px solid var(--line);margin-top:14px;padding-top:9px}
+  .section-kicker{font-size:clamp(12px,.78vw,15px);color:var(--green);font-weight:800;margin-bottom:5px}
+  .footerline{position:absolute;left:clamp(42px,5.2vw,100px);right:clamp(42px,5.2vw,100px);bottom:34px;border-top:1px solid #edf1ed}
+  .nav-hint{
+    position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:20;
+    display:flex;flex-direction:column;gap:9px;align-items:center;
+    background:rgba(255,255,255,.82);backdrop-filter:blur(8px);
+    border:1px solid rgba(47,107,72,.16);padding:10px 8px;border-radius:999px;
+    box-shadow:0 8px 30px rgba(0,0,0,.08);
+  }
+  .nav-dot{width:9px;height:9px;border-radius:50%;background:#cbd7ce;border:0;padding:0;cursor:pointer;transition:.2s}
+  .nav-dot.active{height:24px;border-radius:7px;background:var(--green)}
+  .key-help{position:fixed;left:22px;bottom:18px;z-index:20;font-size:11px;color:#6e7d72;background:rgba(255,255,255,.82);border:1px solid var(--line);border-radius:999px;padding:7px 11px;backdrop-filter:blur(8px)}
+  @media(max-width:900px){
+    html{scroll-snap-type:y proximity}
+    .page{height:auto;min-height:100vh;padding:26px 20px 48px;overflow:visible}
+    .hero-grid,.problem-grid,.feature-grid,.split,.arch-grid{grid-template-columns:1fr}
+    .flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg);text-align:center}
+    .nav-hint,.key-help{display:none}
+  }
+  @media(max-height:820px) and (min-width:901px){
+    .page{padding-top:24px;padding-bottom:30px}
+    h1{font-size:38px}
+    h2{font-size:27px}
+    h3{margin:11px 0 7px;font-size:17px}
+    .lead{font-size:17px}
+    .hero-grid{margin-top:12px}
+    .problem-grid{margin-top:14px}
+    table{font-size:10px}
+    pre{font-size:9.3px}
+  }
+  @media print{
+    @page{size:A4;margin:0}
+    body{background:white}
+    .doc{margin:0;max-width:none}
+    .page{
+      width:210mm;height:297mm;min-height:297mm;
+      margin:0;border-radius:0;box-shadow:none;page-break-after:always;
+    }
+    .page:last-child{page-break-after:auto}
+  }
+
+  /* --- viewport-fit patch: 각 페이지 내용이 브라우저의 실제 가시 높이를 넘지 않도록 자동 축소 --- */
+  .page{
+    height:100dvh;
+    min-height:100dvh;
+    overflow:hidden;
+  }
+  .page-fit{
+    width:100%;
+    transform-origin:top center;
+    will-change:transform;
+  }
+  @supports not (height: 100dvh){
+    .page{height:100vh;min-height:100vh}
+  }
+  @media (min-width:901px){
+    /* FHD에서 브라우저 상/하단 UI를 고려해 기본 밀도를 조금 낮춤 */
+    .page{
+      padding-top:clamp(24px,3.2vh,42px);
+      padding-bottom:clamp(42px,5.2vh,58px);
+    }
+    h1{font-size:clamp(34px,2.55vw,50px)}
+    h2{font-size:clamp(25px,1.75vw,34px)}
+    h3{font-size:clamp(16px,1vw,20px);margin:clamp(10px,1.4vh,16px) 0 7px}
+    .lead{font-size:clamp(16px,1.05vw,20px)}
+    .hero-grid{margin-top:clamp(10px,1.3vh,16px)}
+    .problem-grid{margin-top:clamp(10px,1.3vh,16px)}
+    .feature-grid,.problem-grid,.arch-grid{gap:10px}
+    .card{padding:clamp(10px,.9vw,16px)}
+    .architecture{padding:13px;margin-top:10px}
+    .arch-box{padding:11px 13px}
+    .flow{margin-top:11px}
+    table{margin:5px 0 8px}
+    th,td{padding:5px 7px}
+    pre{margin:5px 0 8px;padding:9px}
+    .note{padding:9px 12px}
+    .source{margin-top:9px;padding-top:7px}
+  }
+
+
+  /* --- page 3 bottom section: normalization left + DB right, larger text --- */
+  .p3-bottom-grid{
+    display:grid;
+    grid-template-columns:1.25fr .75fr;
+    gap:18px;
+    align-items:start;
+    margin-top:12px;
+  }
+  .p3-bottom-grid h3{
+    margin-top:0;
+    margin-bottom:8px;
+    font-size:clamp(18px,1.15vw,22px);
+  }
+  .p3-code pre{
+    font-size:clamp(12px,.72vw,14px);
+    line-height:1.5;
+    padding:14px;
+    margin:0;
+  }
+  .p3-db table{
+    font-size:clamp(12px,.72vw,14px);
+    margin:0;
+  }
+  .p3-db th,.p3-db td{
+    padding:8px 9px;
+  }
+  .p3-db .note{
+    margin-top:10px;
+    font-size:clamp(12px,.72vw,14px);
+  }
+  @media(max-width:900px){
+    .p3-bottom-grid{grid-template-columns:1fr}
+  }
+
+
+  /* --- compact FHD presentation tuning --- */
+  @media (min-width:901px){
+    .page{
+      padding-top:clamp(20px,2.6vh,32px) !important;
+      padding-bottom:clamp(34px,4.2vh,46px) !important;
+    }
+    .page-fit{
+      max-width:1680px;
+      margin:0 auto;
+    }
+    h1{font-size:clamp(32px,2.35vw,44px) !important;margin-bottom:10px}
+    h2{font-size:clamp(24px,1.6vw,30px) !important;margin-bottom:9px}
+    h3{font-size:clamp(16px,.95vw,19px) !important;margin:9px 0 6px !important}
+    .lead{font-size:clamp(15px,.95vw,18px) !important;line-height:1.45}
+    .card{padding:10px 12px !important}
+    .card strong{margin-bottom:3px}
+    .muted{line-height:1.4}
+    .tagrow{margin-top:12px}
+    .tag{padding:5px 9px}
+    .hero-grid{gap:18px !important;margin-top:12px !important}
+    .problem-grid{margin-top:10px !important;gap:9px !important}
+    .feature-grid{gap:9px !important}
+    .architecture{margin-top:9px !important;padding:11px !important}
+    .arch-grid{gap:9px !important}
+    .arch-box{padding:10px 11px !important}
+    .arch-box ul{margin-top:5px}
+    .flow{margin-top:9px !important}
+    .node{padding:9px 10px !important}
+    .split{gap:14px !important}
+    table{font-size:11px !important;margin:4px 0 7px !important}
+    th,td{padding:5px 6px !important}
+    .endpoint{font-size:10.5px !important;padding:5px 7px}
+    pre{font-size:10.5px !important;line-height:1.38 !important;padding:9px !important}
+    .note{font-size:12px !important;padding:8px 10px !important}
+    .source{font-size:9.5px !important;margin-top:7px !important;padding-top:5px !important}
+    .p3-bottom-grid{gap:14px !important;margin-top:8px !important}
+    .p3-code pre{
+      max-height:265px;
+      overflow:auto;
+      font-size:11px !important;
+      line-height:1.35 !important;
+    }
+    .p3-db table{font-size:11px !important}
+    .p3-db th,.p3-db td{padding:6px !important}
+  }
+
+</style>
+</head>
+<body>
+<main class="doc">
+
+<section class="page" data-page="01 / 03">
+  <div class="eyebrow">Team Project · Camping Planner</div>
+  <div class="hero-grid">
+    <div>
+      <h1>날씨와 캠핑장 정보를<br>한 화면에서 연결하는 캠핑 계획 도우미</h1>
+      <p class="lead">
+        캠핑장 검색과 날씨 확인을 한 화면에 묶어,
+        <b>장소·일정·시설·날씨를 빠르게 비교</b>할 수 있는 웹 서비스를 구현한다.
+      </p>
+      <div class="tagrow">
+        <span class="tag">기상청 중기예보 API</span>
+        <span class="tag">한국관광공사 고캠핑 API</span>
+        <span class="tag">Vercel + Render + Supabase</span>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="section-kicker">핵심 사용자 흐름</div>
+      <div class="flow">
+        <div class="node"><b>1. 조건 입력</b><br><small>지역 · 날짜 · 캠핑 유형</small></div>
+        <div class="arrow">→</div>
+        <div class="node"><b>2. 후보 탐색</b><br><small>캠핑장 · 시설 · 위치</small></div>
+        <div class="arrow">→</div>
+        <div class="node"><b>3. 계획 확정</b><br><small>날씨 · 강수 · 기온 확인</small></div>
+      </div>
+    </div>
+  </div>
+
+  <h3>해결하려는 문제</h3>
+  <div class="problem-grid">
+    <div class="card"><span class="num">01</span><strong>정보 분산</strong><span class="muted">캠핑장과 날씨 정보를 각각 검색해야 한다.</span></div>
+    <div class="card"><span class="num">02</span><strong>일정 판단 어려움</strong><span class="muted">강수확률·날씨·기온을 날짜에 맞춰 따로 해석해야 한다.</span></div>
+    <div class="card"><span class="num">03</span><strong>비교 불편</strong><span class="muted">시설·캠핑 유형·예약 정보를 한 번에 비교하기 어렵다.</span></div>
+  </div>
+
+  <h3>구현하고 싶은 기능</h3>
+  <div class="feature-grid">
+    <div class="card"><strong>주변 캠핑장 검색</strong><span class="muted">좌표·반경 기반으로 후보 캠핑장을 찾는다.</span></div>
+    <div class="card"><strong>시설/조건 비교</strong><span class="muted">업종, 부대시설, 반려동물, 예약 정보를 비교한다.</span></div>
+    <div class="card"><strong>일정별 날씨 결합</strong><span class="muted">4~10일 날씨·강수확률·최저/최고기온을 함께 표시한다.</span></div>
+    <div class="card"><strong>캠핑 적합도 요약</strong><span class="muted">비·기온 조건을 간단히 요약해 날짜 선택을 돕는다.</span></div>
+  </div>
+
+  <div class="note" style="margin-top:10px">
+    <b>예보 범위:</b> 중기예보는 06시 발표 기준 4~10일, 18시 발표 기준 5~10일을 제공한다.
+  </div>
+
+  <div class="footerline"></div>
+</section>
+
+<section class="page" data-page="02 / 03">
+  <div class="eyebrow">Architecture & Data Flow</div>
+  <h2>클라이언트, API 서버, DB를 분리한 배포 구조</h2>
+  <p class="muted">외부 API 키를 브라우저에 노출하지 않고, 데이터 결합·캐싱·사용자 저장 기능을 서버 계층에서 담당한다.</p>
+
+  <div class="architecture">
+    <div class="arch-grid">
+      <div class="arch-box">
+        <b>Vercel · Client</b>
+        <small>웹 UI 정적 배포/SSR 영역</small>
+        <ul class="use-list">
+          <li>검색 조건 입력</li>
+          <li>캠핑장·날씨 UI 표시</li>
+        </ul>
+      </div>
+      <div class="arch-box">
+        <b>Render · API Server</b>
+        <small>외부 API 연동 및 조합 계층</small>
+        <ul class="use-list">
+          <li>API Key 보관 및 외부 API 호출</li>
+          <li>응답 결합·정규화</li>
+        </ul>
+      </div>
+      <div class="arch-box">
+        <b>Supabase · DB</b>
+        <small>PostgreSQL 기반 영속 데이터</small>
+        <ul class="use-list">
+          <li>계획·즐겨찾기·캐시</li>
+          <li>지역 ↔ regId 매핑</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h3>외부 API 연결 흐름</h3>
+  <div class="flow">
+    <div class="node"><b>Vercel</b><br><small>검색 조건 전송</small></div>
+    <div class="arrow">→</div>
+    <div class="node"><b>Render</b><br><small>GoCamping + KMA 호출</small></div>
+    <div class="arrow">→</div>
+    <div class="node"><b>Supabase</b><br><small>매핑·캐시·계획 저장</small></div>
+  </div>
+
+  <div class="split" style="margin-top:18px">
+    <div>
+      <div class="section-kicker">① 고캠핑 · 위치기반 캠핑장 조회</div>
+      <div class="endpoint">GET /B551011/GoCamping/locationBasedList</div>
+      <table>
+        <tr><th>Request</th><th>용도</th></tr>
+        <tr><td>serviceKey</td><td>인증키</td></tr>
+        <tr><td>mapX / mapY</td><td>경도 / 위도</td></tr>
+        <tr><td>radius</td><td>검색 반경(m), 최대 20km</td></tr>
+        <tr><td>MobileOS / MobileApp</td><td>호출 서비스 식별</td></tr>
+        <tr><td>_type=json</td><td>JSON 응답</td></tr>
+      </table>
+      <pre>GET .../locationBasedList
+?serviceKey={KEY}
+&MobileOS=ETC
+&MobileApp=CampingPlanner
+&mapX=128.6142847
+&mapY=36.0345423
+&radius=20000
+&_type=json</pre>
+    </div>
+
+    <div>
+      <div class="section-kicker">② 기상청 · 중기육상예보 조회</div>
+      <div class="endpoint">GET /1360000/MidFcstInfoService/getMidLandFcst</div>
+      <table>
+        <tr><th>Request</th><th>용도</th></tr>
+        <tr><td>serviceKey</td><td>인증키</td></tr>
+        <tr><td>regId</td><td>예보구역 코드</td></tr>
+        <tr><td>tmFc</td><td>발표시각</td></tr>
+        <tr><td>dataType=JSON</td><td>JSON 응답</td></tr>
+      </table>
+      <pre>GET .../getMidLandFcst
+?serviceKey={KEY}
+&numOfRows=10&pageNo=1
+&dataType=JSON
+&regId=11B00000
+&tmFc=YYYYMMDD0600</pre>
+    </div>
+  </div>
+
+  <div class="note">
+    <b>지역 코드 연결:</b> 고캠핑의 지역/좌표 정보를 Supabase의 <code>regId</code> 매핑 테이블과 연결해 기상청 예보를 조회한다.
+  </div>
+
+  <div class="footerline"></div>
+</section>
+
+<section class="page" data-page="03 / 03">
+  <div class="eyebrow">API Return Spec & Usage</div>
+  <h2>반환값을 “캠핑 선택 정보”로 어떻게 사용할 것인가</h2>
+
+  <div class="split">
+    <div>
+      <div class="section-kicker">고캠핑 응답 → 캠핑장 후보 카드</div>
+      <table>
+        <tr><th>Return 필드</th><th>사용</th></tr>
+        <tr><td>contentId / facltNm</td><td>고유키·캠핑장명</td></tr>
+        <tr><td>addr1 / mapX / mapY</td><td>주소·지도·날씨 지역 연결</td></tr>
+        <tr><td>induty / lctCl</td><td>캠핑 유형·입지 필터</td></tr>
+        <tr><td>sbrsCl / animalCmgCl</td><td>부대시설·반려동물 필터</td></tr>
+        <tr><td>resveUrl / firstImageUrl</td><td>예약 링크·대표 이미지</td></tr>
+      </table>
+
+      <div class="section-kicker">추가 검색 API</div>
+      <p class="muted" style="font-size:12px">
+        <span class="pill">basedList</span> 전체 기본정보 목록,
+        <span class="pill">searchList</span> 키워드 검색,
+        <span class="pill">locationBasedList</span> 좌표/반경 검색을 목적별로 사용한다.
+      </p>
+    </div>
+
+    <div>
+      <div class="section-kicker">기상청 응답 → 일정별 날씨 카드</div>
+      <table>
+        <tr><th>Return 필드</th><th>사용</th></tr>
+        <tr><td>rnSt4~10</td><td>날짜별 강수확률</td></tr>
+        <tr><td>wf4~10</td><td>날짜별 날씨 상태</td></tr>
+        <tr><td>taMin4~10</td><td>예상 최저기온</td></tr>
+        <tr><td>taMax4~10</td><td>예상 최고기온</td></tr>
+      </table>
+
+      <div class="section-kicker">중기기온 API</div>
+      <div class="endpoint">GET /1360000/MidFcstInfoService/getMidTa</div>
+    </div>
+  </div>
+
+  <div class="p3-bottom-grid">
+    <section class="p3-code">
+      <h3>Render 서버에서 프론트용 응답으로 정규화</h3>
+      <pre>{
+  "campground": {
+    "id": "29",
+    "name": "80 SS 오토캠핑장",
+    "location": {"lat": 36.03, "lng": 128.63},
+    "type": ["자동차야영장", "글램핑"],
+    "amenities": ["전기", "온수", "무선인터넷"],
+    "reservationUrl": "..."
+  },
+  "forecast": [{
+    "dateOffset": 5,
+    "weather": "구름많음",
+    "rainProbability": 30,
+    "minTemp": 13,
+    "maxTemp": 20
+  }]
+}</pre>
+    </section>
+
+    <section class="p3-db">
+      <h3>DB에 저장할 핵심 데이터</h3>
+      <table>
+        <tr><th>테이블</th><th>목적</th></tr>
+        <tr><td><b>camp_plans</b></td><td>캠핑 일정 저장</td></tr>
+        <tr><td><b>favorites</b></td><td>찜한 캠핑장</td></tr>
+        <tr><td><b>weather_region_map</b></td><td>지역 ↔ 기상청 코드 연결</td></tr>
+        <tr><td><b>camp_cache</b></td><td>API 응답 캐시</td></tr>
+      </table>
+
+      <div class="note">
+        <b>MVP:</b> 검색 → 시설 비교 → 날씨 확인 → 즐겨찾기/계획 저장
+      </div>
+    </section>
+  </div>
+
+  <div class="source">
+    Source notes · 기상청 「중기예보 조회서비스 Open API 활용가이드」(2024-11-28 버전) /
+    한국관광공사 「고캠핑 정보 활용 매뉴얼 Ver4.1」(2024-03-27).
+    본 문서의 Vercel·Render·Supabase 구성은 팀의 구현 계획을 반영한 설계안이다.
+  </div>
+
+  <div class="footerline"></div>
+</section>
+
+</main>
+
+<div class="nav-hint" aria-label="페이지 이동">
+  <button class="nav-dot active" data-index="0" aria-label="1페이지"></button>
+  <button class="nav-dot" data-index="1" aria-label="2페이지"></button>
+  <button class="nav-dot" data-index="2" aria-label="3페이지"></button>
+</div>
+<div class="key-help">↓ / Page Down : 다음 페이지 · ↑ / Page Up : 이전 페이지</div>
+<script>
+(() => {
+  const pages = [...document.querySelectorAll('.page')];
+
+  // 각 페이지의 실제 콘텐츠 높이를 측정해 viewport 안에 100% 들어오도록 자동 축소한다.
+  // 브라우저 주소창/북마크바 등으로 실제 표시 영역이 1080px보다 작아도 하단이 잘리지 않는다.
+  const installPageFit = () => {
+    pages.forEach(page => {
+      if (!page.querySelector(':scope > .page-fit')) {
+        const fit = document.createElement('div');
+        fit.className = 'page-fit';
+        [...page.children].forEach(child => {
+          if (!child.classList.contains('footerline')) fit.appendChild(child);
+        });
+        page.insertBefore(fit, page.querySelector('.footerline'));
+      }
+    });
+
+    const fitPages = () => {
+      if (window.innerWidth <= 900) {
+        pages.forEach(page => {
+          const fit = page.querySelector('.page-fit');
+          if (fit) fit.style.transform = '';
+        });
+        return;
+      }
+
+      pages.forEach(page => {
+        const fit = page.querySelector('.page-fit');
+        if (!fit) return;
+
+        fit.style.transform = 'none';
+
+        const cs = getComputedStyle(page);
+        const padTop = parseFloat(cs.paddingTop) || 0;
+        const padBottom = parseFloat(cs.paddingBottom) || 0;
+        const padLeft = parseFloat(cs.paddingLeft) || 0;
+        const padRight = parseFloat(cs.paddingRight) || 0;
+
+        // 페이지 번호/하단 라인과 겹치지 않도록 약간의 안전 여백 확보
+        const availableH = page.clientHeight - padTop - padBottom - 8;
+        const availableW = page.clientWidth - padLeft - padRight - 8;
+
+        const contentH = fit.scrollHeight;
+        const contentW = fit.scrollWidth;
+
+        const scale = Math.min(
+          1,
+          availableH / Math.max(contentH, 1),
+          availableW / Math.max(contentW, 1)
+        );
+
+        // 소수점 렌더링 오차까지 고려하여 1% 추가 여유
+        const safeScale = Math.max(0.72, scale * 0.99);
+        fit.style.transform = `scale(${safeScale})`;
+      });
+    };
+
+    const runFit = () => requestAnimationFrame(() => requestAnimationFrame(fitPages));
+    runFit();
+    window.addEventListener('resize', runFit, {passive:true});
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', runFit, {passive:true});
+    }
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(runFit);
+    }
+  };
+
+  installPageFit();
+
+  const dots = [...document.querySelectorAll('.nav-dot')];
+  let current = 0;
+  let locked = false;
+  let wheelAccum = 0;
+  let wheelTimer;
+
+  const clamp = n => Math.max(0, Math.min(pages.length - 1, n));
+  const updateDots = index => {
+    dots.forEach((d, i) => d.classList.toggle('active', i === index));
+  };
+  const go = (index) => {
+    index = clamp(index);
+    if (index === current && Math.abs(window.scrollY - pages[index].offsetTop) < 4) return;
+    current = index;
+    updateDots(current);
+    locked = true;
+    pages[current].scrollIntoView({behavior:'smooth', block:'start'});
+    window.setTimeout(() => { locked = false; }, 650);
+  };
+
+  dots.forEach(dot => dot.addEventListener('click', () => go(Number(dot.dataset.index))));
+
+  window.addEventListener('keydown', (e) => {
+    if (e.target.matches('input, textarea, select, button')) return;
+    if (['ArrowDown','PageDown','Space'].includes(e.code)) {
+      e.preventDefault();
+      if (!locked) go(current + 1);
+    } else if (['ArrowUp','PageUp'].includes(e.code)) {
+      e.preventDefault();
+      if (!locked) go(current - 1);
+    } else if (e.code === 'Home') {
+      e.preventDefault(); go(0);
+    } else if (e.code === 'End') {
+      e.preventDefault(); go(pages.length - 1);
+    }
+  }, {passive:false});
+
+  // 휠/터치패드는 한 번의 의도적인 스크롤 제스처당 한 페이지만 이동
+  window.addEventListener('wheel', (e) => {
+    if (window.innerWidth <= 900) return;
+    e.preventDefault();
+    if (locked) return;
+    wheelAccum += e.deltaY;
+    clearTimeout(wheelTimer);
+    wheelTimer = setTimeout(() => wheelAccum = 0, 140);
+    if (Math.abs(wheelAccum) >= 42) {
+      const direction = wheelAccum > 0 ? 1 : -1;
+      wheelAccum = 0;
+      go(current + direction);
+    }
+  }, {passive:false});
+
+  // 스크롤바 드래그/브라우저 탐색 등으로 위치가 바뀐 경우 현재 페이지 동기화
+  let raf = false;
+  window.addEventListener('scroll', () => {
+    if (raf) return;
+    raf = true;
+    requestAnimationFrame(() => {
+      const center = window.scrollY + window.innerHeight * 0.5;
+      let nearest = 0;
+      let dist = Infinity;
+      pages.forEach((p, i) => {
+        const c = p.offsetTop + p.offsetHeight * 0.5;
+        const d = Math.abs(center - c);
+        if (d < dist) { dist = d; nearest = i; }
+      });
+      current = nearest;
+      updateDots(current);
+      raf = false;
+    });
+  }, {passive:true});
+})();
+</script>
+</body>
+</html>
