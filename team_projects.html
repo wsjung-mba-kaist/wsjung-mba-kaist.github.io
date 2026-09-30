@@ -241,11 +241,11 @@
     <p class="eyebrow">KAIST 디지털금융 MBA · 클라우드컴퓨팅실습</p>
     <h1>팀 프로젝트 제출 현황</h1>
     <p class="desc">각 조가 제출한 팀 프로젝트 페이지와 아이디어 요약입니다. 조 이름을 누르면 상세로, URL을 누르면 팀 페이지로 이동합니다.</p>
-    <div class="ts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>정리 기준 2026년 9월 30일(수) 12:09 KST</div>
+    <div class="ts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>정리 기준 2026년 9월 30일(수) 15:04 KST</div>
     <div class="stats">
       <div class="stat"><b>10</b><span>전체 조</span></div>
-      <div class="stat"><b>5</b><span>제출 (1·5·6·7·8조)</span></div>
-      <div class="stat"><b>5</b><span>미제출 (2·3·4·9·10조)</span></div>
+      <div class="stat"><b>6</b><span>제출 (1·5·6·7·8·10조)</span></div>
+      <div class="stat"><b>4</b><span>미제출 (2·3·4·9조)</span></div>
       <div class="stat"><b>4</b><span>제출 URL</span></div>
     </div>
   </div>
@@ -325,12 +325,12 @@
             <td style="font-size:13px">이동주·주연경·박찬휘·신지호·이영선</td>
             <td></td>
           </tr>
-          <tr class="missing">
-            <td><span class="badge none">10조</span></td>
-            <td><b>미제출</b></td>
-            <td class="url">—</td>
+          <tr>
+            <td><span class="badge">10조</span></td>
+            <td><b>캠핑 플래너</b><br><span style="color:var(--muted);font-size:13px">날씨와 캠핑장 정보를 한 화면에서 연결하는 캠핑 계획 도우미</span></td>
+            <td class="url"><span class="badge file">URL 없음 · 소개 자료(HTML) 제출</span></td>
             <td style="font-size:13px">박지호·이강병·이상석·주재근</td>
-            <td></td>
+            <td><div class="actions"><a class="btn small" href="#team10">상세</a></div></td>
           </tr>
         </tbody>
       </table>
@@ -346,7 +346,7 @@
 
   <!-- ================= 조별 상세 ================= -->
   <section id="teams">
-    <h2 class="sec">조별 상세 <small>1 · 5 · 6 · 7 · 8조</small></h2>
+    <h2 class="sec">조별 상세 <small>1 · 5 · 6 · 7 · 8 · 10조</small></h2>
 
     <!-- 1조 -->
     <article class="card" id="team1">
@@ -607,10 +607,71 @@
       </div>
     </article>
 
+    <!-- 10조 -->
+    <article class="card" id="team10">
+      <div class="card-head">
+        <div class="team-no"><b>10</b><span>조</span></div>
+        <div class="card-title">
+          <h3>캠핑 플래너 <span class="en">Camping Planner</span></h3>
+          <p class="tagline">날씨와 캠핑장 정보를 한 화면에서 연결하는 캠핑 계획 도우미 — 장소·일정·시설·날씨를 빠르게 비교하는 웹 서비스</p>
+        </div>
+      </div>
+      <div class="urlbox none">
+        <span class="label">URL</span>
+        <span class="u" style="font-family:inherit;font-size:14px">웹 페이지 URL 없음 — 프로젝트 소개 자료(HTML, 3페이지)로 제출</span>
+        <span class="badge file">파일 제출</span>
+      </div>
+      <div class="grid">
+        <div class="field">
+          <h4>구성원 (4명)</h4>
+          <div class="members">
+            <span class="chip">박지호</span><span class="chip">이강병</span><span class="chip">이상석</span><span class="chip">주재근</span>
+          </div>
+        </div>
+        <div class="field">
+          <h4>핵심 사용자 흐름</h4>
+          <div class="flow"><span>① 조건 입력<br><small style="font-weight:400;color:var(--muted)">지역 · 날짜 · 캠핑 유형</small></span><i>→</i><span>② 후보 탐색<br><small style="font-weight:400;color:var(--muted)">캠핑장 · 시설 · 위치</small></span><i>→</i><span>③ 계획 확정<br><small style="font-weight:400;color:var(--muted)">날씨 · 강수 · 기온</small></span></div>
+        </div>
+        <div class="field">
+          <h4>해결하려는 문제</h4>
+          <ul>
+            <li><b>정보 분산</b> — 캠핑장과 날씨 정보를 각각 검색해야 함</li>
+            <li><b>일정 판단 어려움</b> — 강수확률·날씨·기온을 날짜에 맞춰 따로 해석해야 함</li>
+            <li><b>비교 불편</b> — 시설·캠핑 유형·예약 정보를 한 번에 비교하기 어려움</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>주요 기능</h4>
+          <ul>
+            <li>주변 캠핑장 검색 (좌표·반경 기반)</li>
+            <li>시설/조건 비교 (업종, 부대시설, 반려동물, 예약 정보)</li>
+            <li>일정별 날씨 결합 (4~10일 날씨·강수확률·최저/최고기온)</li>
+            <li>캠핑 적합도 요약 (비·기온 조건으로 날짜 선택 지원)</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>데이터 출처</h4>
+          <ul>
+            <li>한국관광공사 고캠핑 API (위치기반 · 기본정보 · 키워드 검색)</li>
+            <li>기상청 중기예보 API (중기육상예보 · 중기기온)</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>구현 구조</h4>
+          <div class="flow"><span>Vercel (Client)</span><i>→</i><span>Render (API Server)</span><i>→</i><span>Supabase (PostgreSQL)</span></div>
+          <p style="margin-top:6px;font-size:13px;color:var(--muted)">API 키는 서버에서 보관하고 외부 응답을 결합·정규화 · DB에 계획(camp_plans)·즐겨찾기·지역↔예보구역 매핑·API 캐시 저장</p>
+        </div>
+        <div class="field full">
+          <h4>MVP 범위</h4>
+          <div class="flow"><span>검색</span><i>→</i><span>시설 비교</span><i>→</i><span>날씨 확인</span><i>→</i><span>즐겨찾기 · 계획 저장</span></div>
+        </div>
+      </div>
+    </article>
+
   </section>
 
   <footer class="foot">
-    정리 기준 2026-09-30 12:09 KST · 각 팀 페이지 내용은 이 시각 기준이며, 이후 팀에서 페이지를 수정하면 달라질 수 있습니다.
+    정리 기준 2026-09-30 15:04 KST · 각 팀 페이지 내용은 이 시각 기준이며, 이후 팀에서 페이지를 수정하면 달라질 수 있습니다.
   </footer>
 </div>
 
