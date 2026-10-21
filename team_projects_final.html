@@ -276,14 +276,14 @@
     <h1>팀 프로젝트 최종 발표 <span class="week">8주차</span></h1>
     <p class="desc">각 조가 제출한 최종 발표 자료, 배포된 서비스, GitHub 저장소, Swagger UI 주소를 한곳에 모았습니다. 조 이름을 누르면 상세로, 버튼을 누르면 새 탭에서 열립니다.</p>
     <div class="hero-row">
-      <span class="ts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>정리 기준 2026년 10월 21일(수) 13:47 KST</span>
+      <span class="ts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>정리 기준 2026년 10월 21일(수) 15:43 KST</span>
       <a class="hero-link" href="https://wsjung-mba-kaist.github.io/team_projects.html" target="_blank" rel="noopener">중간 제출 현황 보기 ↗</a>
     </div>
     <div class="stats">
       <div class="stat"><b>10</b><span>전체 조</span></div>
-      <div class="stat"><b>9</b><span>최종 제출 (8조 외 전 조)</span></div>
-      <div class="stat"><b>1</b><span>미제출 (8조)</span></div>
-      <div class="stat"><b>9 / 9</b><span>서비스·Swagger 접속 확인</span></div>
+      <div class="stat"><b>10</b><span>최종 제출 (전 조 완료)</span></div>
+      <div class="stat"><b>10 / 10</b><span>서비스·Swagger 접속 확인</span></div>
+      <div class="stat"><b>1</b><span>확인 필요 (4조 GitHub)</span></div>
       <div class="stat"><b>2</b><span>발표 파일 첨부 (6·10조)</span></div>
     </div>
   </div>
@@ -384,11 +384,16 @@
             </div></td>
             <td class="det"><a class="btn small" href="#team7">상세</a></td>
           </tr>
-          <tr class="missing">
-            <td><span class="badge none">8조</span></td>
-            <td><a href="#team8"><b>금융규제통합조회 (가칭)</b></a><br><span class="sub">법령 개정·해석·비조치의견 통합 조회</span></td>
+          <tr>
+            <td><span class="badge">8조</span></td>
+            <td><a href="#team8"><b>금융규제통합조회</b></a><br><span class="sub">법령·해석·행정지도를 조문 단위로 연결</span></td>
             <td class="mem">양정모·양지선·이수정·김한룡·최은정</td>
-            <td class="go"><span class="badge warn">최종 자료 미제출</span></td>
+            <td class="go"><div class="lks">
+              <a class="lk pres" href="https://teamproject8-service.vercel.app/" target="_blank" rel="noopener">발표 ↗</a>
+              <a class="lk" href="https://teamproject8-service.vercel.app/app/" target="_blank" rel="noopener">서비스</a>
+              <a class="lk" href="https://github.com/ellaamode/teamproject8" target="_blank" rel="noopener">GitHub</a>
+              <a class="lk" href="https://finreg-api-nbco.onrender.com/docs" target="_blank" rel="noopener">Swagger</a>
+            </div></td>
             <td class="det"><a class="btn small" href="#team8">상세</a></td>
           </tr>
           <tr>
@@ -417,7 +422,7 @@
         </tbody>
       </table>
       <div class="quick-foot">
-        <span>제출한 9개 조의 발표·서비스·GitHub·Swagger 주소를 한 번에 복사할 수 있습니다.</span>
+        <span>10개 조의 발표·서비스·GitHub·Swagger 주소를 한 번에 복사할 수 있습니다.</span>
         <button class="btn small" id="copyAll">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
           주소 전체 복사
@@ -432,11 +437,11 @@
       <div class="warm-head">
         <div>
           <h2 class="sec" style="margin-bottom:4px">발표 전 API 서버 깨우기 <small>Render 무료 플랜</small></h2>
-          <p>제출한 아홉 조의 백엔드는 모두 Render 무료 플랜이라, 한동안 요청이 없으면 잠들어 첫 응답에 20~60초가 걸립니다. 발표 5분 전쯤 아래 버튼을 한 번 누르면 아홉 서버에 요청을 보내 미리 깨워 둡니다.</p>
+          <p>10개 조의 백엔드는 모두 Render 무료 플랜이라, 한동안 요청이 없으면 잠들어 첫 응답에 20~60초가 걸립니다. 발표 5분 전쯤 아래 버튼을 한 번 누르면 10개 서버에 요청을 보내 미리 깨워 둡니다.</p>
         </div>
         <button class="btn primary" id="warmBtn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          서버 9곳 깨우기
+          서버 10곳 깨우기
         </button>
       </div>
       <div class="warm-list">
@@ -447,6 +452,7 @@
         <div class="wcell"><b>5조 HINDSIGHT</b><a href="https://hindsight-api-edab.onrender.com/docs" target="_blank" rel="noopener">hindsight-api-edab.onrender.com</a><br><span class="wstate" data-warm="https://hindsight-api-edab.onrender.com/docs">대기</span></div>
         <div class="wcell"><b>6조 fundflow</b><a href="https://fundflow-api-kr3i.onrender.com/docs" target="_blank" rel="noopener">fundflow-api-kr3i.onrender.com</a><br><span class="wstate" data-warm="https://fundflow-api-kr3i.onrender.com/docs">대기</span></div>
         <div class="wcell"><b>7조 스트레스 대시보드</b><a href="https://team7-stress-dashboard.onrender.com/docs" target="_blank" rel="noopener">team7-stress-dashboard.onrender.com</a><br><span class="wstate" data-warm="https://team7-stress-dashboard.onrender.com/docs">대기</span></div>
+        <div class="wcell"><b>8조 금융규제통합조회</b><a href="https://finreg-api-nbco.onrender.com/docs" target="_blank" rel="noopener">finreg-api-nbco.onrender.com</a><br><span class="wstate" data-warm="https://finreg-api-nbco.onrender.com/docs">대기</span></div>
         <div class="wcell"><b>9조 같이 갈래?</b><a href="https://baf60081-team9.onrender.com/docs" target="_blank" rel="noopener">baf60081-team9.onrender.com</a><br><span class="wstate" data-warm="https://baf60081-team9.onrender.com/docs">대기</span></div>
         <div class="wcell"><b>10조 camp:on</b><a href="https://camping-weather-api.onrender.com/docs" target="_blank" rel="noopener">camping-weather-api.onrender.com</a><br><span class="wstate" data-warm="https://camping-weather-api.onrender.com/docs">대기</span></div>
       </div>
@@ -455,7 +461,7 @@
 
   <!-- ================= 조별 상세 ================= -->
   <section id="teams">
-    <h2 class="sec">조별 상세 · 최종 제출 <small>8조 외 9개 조 · 각 조 발표 자료 내용을 요약</small></h2>
+    <h2 class="sec">조별 상세 · 최종 제출 <small>1~10조 전 조 · 각 조 발표 자료 내용을 요약</small></h2>
 
     <!-- 1조 -->
     <article class="card" id="team1">
@@ -757,6 +763,7 @@
       </div>
       <div class="linkbox">
         <div class="lrow"><span class="label">발표 페이지</span><a class="u" href="https://hindsight-gold.vercel.app/" target="_blank" rel="noopener">https://hindsight-gold.vercel.app/<small>← → 키로 넘김 · 부록 19·20장에 API·DB 문서</small></a><div class="actions"><a class="btn small primary" href="https://hindsight-gold.vercel.app/" target="_blank" rel="noopener">열기 ↗</a><button class="btn small copy" data-url="https://hindsight-gold.vercel.app/">복사</button></div></div>
+        <div class="lrow"><span class="label">데이터 흐름도</span><a class="u" href="https://hindsight-gold.vercel.app/dataflow.html" target="_blank" rel="noopener">https://hindsight-gold.vercel.app/dataflow.html<small>모션그래픽 영상 · 10/21 추가 제출</small></a><div class="actions"><a class="btn small" href="https://hindsight-gold.vercel.app/dataflow.html" target="_blank" rel="noopener">열기 ↗</a><button class="btn small copy" data-url="https://hindsight-gold.vercel.app/dataflow.html">복사</button></div></div>
         <div class="lrow"><span class="label">서비스</span><a class="u" href="https://hindsight-web.vercel.app/" target="_blank" rel="noopener">https://hindsight-web.vercel.app/</a><div class="actions"><a class="btn small" href="https://hindsight-web.vercel.app/" target="_blank" rel="noopener">열기 ↗</a><button class="btn small copy" data-url="https://hindsight-web.vercel.app/">복사</button></div></div>
         <div class="lrow"><span class="label">GitHub</span><span class="u"><a href="https://github.com/insung1939/hindsight" target="_blank" rel="noopener">https://github.com/insung1939/hindsight</a><small><a href="https://github.com/insung1939/hindsight/blob/main/docs/api.md" target="_blank" rel="noopener">API 설명 문서 (docs/api.md)</a> · <a href="https://github.com/insung1939/hindsight/blob/main/docs/db.md" target="_blank" rel="noopener">DB 테이블 문서 (docs/db.md)</a></small></span><div class="actions"><a class="btn small" href="https://github.com/insung1939/hindsight" target="_blank" rel="noopener">열기 ↗</a><button class="btn small copy" data-url="https://github.com/insung1939/hindsight">복사</button></div></div>
         <div class="lrow"><span class="label">Swagger UI</span><a class="u" href="https://hindsight-api-edab.onrender.com/docs" target="_blank" rel="noopener">https://hindsight-api-edab.onrender.com/docs</a><div class="actions"><a class="btn small" href="https://hindsight-api-edab.onrender.com/docs" target="_blank" rel="noopener">열기 ↗</a><button class="btn small copy" data-url="https://hindsight-api-edab.onrender.com/docs">복사</button></div></div>
@@ -971,6 +978,80 @@
       <div class="changes"><b>중간 발표 대비</b>지표 4개 → 5개(신용 스프레드 추가) · 1개월 변화 기준 규칙 → 과거 백분위 기반 점수 · Yahoo Finance를 빼고 FRED로 통일 · 화면은 Vercel 대신 Render Static Site · 제출 글에는 GitHub 주소만 있고 서비스·Swagger는 저장소 안 발표 자료에 기재</div>
     </article>
 
+    <!-- 8조 -->
+    <article class="card" id="team8">
+      <div class="card-head">
+        <div class="team-no"><b>8</b><span>조</span></div>
+        <div class="card-title">
+          <h3>금융규제통합조회 <span class="en">금융규제 통합조회 서비스</span></h3>
+          <p class="tagline">금융 법령·행정규칙과 금융당국의 법령해석·비조치의견·행정지도를 조문 단위로 연결해, “이 조문을 두고 당국은 뭐라고 했고, 앞으로 무엇이 바뀌는지”를 한 화면에서 보여주는 조회 도구</p>
+        </div>
+      </div>
+      <div class="linkbox">
+        <div class="lrow"><span class="label">발표 페이지</span><a class="u" href="https://teamproject8-service.vercel.app/" target="_blank" rel="noopener">https://teamproject8-service.vercel.app/<small>서비스 기획서 · 13개 장 (문제 → 화면 → 데이터·API → 분석 결과)</small></a><div class="actions"><a class="btn small primary" href="https://teamproject8-service.vercel.app/" target="_blank" rel="noopener">열기 ↗</a><button class="btn small copy" data-url="https://teamproject8-service.vercel.app/">복사</button></div></div>
+        <div class="lrow"><span class="label">서비스</span><a class="u" href="https://teamproject8-service.vercel.app/app/" target="_blank" rel="noopener">https://teamproject8-service.vercel.app/app/</a><div class="actions"><a class="btn small" href="https://teamproject8-service.vercel.app/app/" target="_blank" rel="noopener">열기 ↗</a><button class="btn small copy" data-url="https://teamproject8-service.vercel.app/app/">복사</button></div></div>
+        <div class="lrow"><span class="label">GitHub</span><a class="u" href="https://github.com/ellaamode/teamproject8" target="_blank" rel="noopener">https://github.com/ellaamode/teamproject8</a><div class="actions"><a class="btn small" href="https://github.com/ellaamode/teamproject8" target="_blank" rel="noopener">열기 ↗</a><button class="btn small copy" data-url="https://github.com/ellaamode/teamproject8">복사</button></div></div>
+        <div class="lrow"><span class="label">Swagger UI</span><a class="u" href="https://finreg-api-nbco.onrender.com/docs" target="_blank" rel="noopener">https://finreg-api-nbco.onrender.com/docs</a><div class="actions"><a class="btn small" href="https://finreg-api-nbco.onrender.com/docs" target="_blank" rel="noopener">열기 ↗</a><button class="btn small copy" data-url="https://finreg-api-nbco.onrender.com/docs">복사</button></div></div>
+      </div>
+      <div class="grid">
+        <div class="field">
+          <h4>구성원 (5명)</h4>
+          <div class="members"><span class="chip">양정모</span><span class="chip">양지선</span><span class="chip">이수정</span><span class="chip">김한룡</span><span class="chip lead">최은정 <small>제출</small></span></div>
+        </div>
+        <div class="field">
+          <h4>핵심 아이디어</h4>
+          <p class="quote">“모든 자료의 기준점은 ‘조문’입니다.”</p>
+        </div>
+        <div class="field">
+          <h4>해결하려는 문제</h4>
+          <ul>
+            <li><b>자료가 흩어져 있다</b> — 법령은 국가법령정보센터, 해석·비조치의견·행정지도는 금융규제·법령해석포털에 따로 있음</li>
+            <li><b>해석에 대상 조문이 없다</b> — 회신 6,177건에 ‘관련 조문’ 칸이 없고 인용 표기도 제각각</li>
+            <li><b>바뀌는 내용을 미리 알기 어렵다</b> — 시행 예정 개정 조문(71개), 행정지도 만료가 한곳에 없음</li>
+          </ul>
+          <p class="aside">주 사용자: 준법감시 담당자, 상품·사업 기획자, IT·보안 담당자 · 법률 자문이 아닌 조회 도구</p>
+        </div>
+        <div class="field">
+          <h4>주요 화면 · 기능</h4>
+          <ul>
+            <li><b>조문 카드</b> (핵심) — 연결 지도, 현행·개정 본문 차이, 위임 규정, 이 조문을 다룬 자료</li>
+            <li><b>해석·의견 찾기</b> — 일상어 검색, 조문 표기는 바로 이동</li>
+            <li><b>문서</b> — 원문에서 인용 조문을 링크로 강조</li>
+            <li><b>홈 · 관심 조문</b> — 새 해석, 시행 예정 조문, 만료 임박 행정지도</li>
+            <li><b>법령 · 행정지도 · 데이터 분석</b></li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>데이터 출처</h4>
+          <ul>
+            <li>법제처 국가법령정보 Open API — 5개 법률(자본시장법·외국환거래법·은행법·보험업법·전자금융거래법)과 시행령·행정규칙 21건, 3단비교 위임 관계</li>
+            <li>금융규제·법령해석포털 회신사례 — 크롤링, 6,177건 전부 수집 (1.5초 간격, 전화번호·실명 가림)</li>
+            <li>금융위원회 행정지도 목록 — 존속기간으로 시행 중·만료 임박 계산</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>서비스 아키텍처</h4>
+          <div class="flow"><span>법제처 API · 금융위 포털</span><i>→</i><span>수집 프로그램<small>GitHub Actions 매일 06:00</small></span><i>→</i><span>PostgreSQL<small>Supabase · 테이블 10개</small></span><i>→</i><span>FastAPI<small>Render · 조회 GET 11개</small></span><i>→</i><span>화면<small>Vercel</small></span></div>
+          <p class="aside">공개 API는 읽기 계정만, 쓰기는 수집 프로그램만 · 모든 표에 RLS · 같은 요청은 30분 서버 캐시 · API가 잠들면 화면이 대표 JSON으로 대체</p>
+        </div>
+        <div class="field full">
+          <h4>데이터 분석·정리 결과</h4>
+          <div class="kpis">
+            <div class="kpi"><b>3,629개</b><span>수집한 조문 (5개 법률 + 시행령·행정규칙 21건)</span></div>
+            <div class="kpi"><b>6,177건</b><span>법령해석·비조치의견 회신 (포털 12,091건 중 범위 안 전부)</span></div>
+            <div class="kpi"><b>77.4%</b><span>대상 법률을 언급한 회신 중 조문까지 자동 연결 (2,112 / 2,730건)</span></div>
+            <div class="kpi"><b>96%</b><span>인용 연결 정확도 (무작위 100개를 원문과 대조)</span></div>
+          </div>
+          <p class="kpi-note">처음 정확도는 87%였고, 틀린 13건의 원인을 ‘애매하면 보류’ 규칙으로 막아 높임 · 조문 연결 5,037개</p>
+        </div>
+        <div class="field full">
+          <h4>비즈니스 모델</h4>
+          <p>금융회사 실무자는 무료로 쓰고, 수익은 금융 전문 로펌·컨설팅사 광고(분야별 전문가 광고, 개정 소식 스폰서, 클릭형)로. 광고는 표시하고 정보와 분리해 검색 순서·조문 연결에 영향을 주지 않음 · 운영비 0원 구조(DB 약 81MB), 매일 자동 수집으로 사람 손이 거의 들지 않음.</p>
+        </div>
+      </div>
+      <div class="changes"><b>중간 발표 대비</b>‘가칭’ 기획 페이지(ellaamode.github.io/teamproject) → 서비스 기획서 + 배포 서비스 · 국민참여입법센터 입법예고와 OpenSearch(AWS)는 빼고 확장 후보로 · 금융위 행정지도 추가</div>
+    </article>
+
     <!-- 9조 -->
     <article class="card" id="team9">
       <div class="card-head">
@@ -1102,21 +1183,9 @@
   </section>
 
   <!-- ================= 미제출 ================= -->
-  <section id="pending">
-    <h2 class="sec">최종 자료 미제출 조 <small>8조 · 10월 21일 13:47 기준 · 중간 제출 자료로 연결</small></h2>
-    <div class="pending">
-      <div class="pcard" id="team8">
-        <div class="pcard-head"><div class="team-no"><b>8</b><span>조</span></div><h3>금융규제통합조회 (가칭)<br><span class="badge warn">최종 자료 미제출</span></h3></div>
-        <div class="members"><span class="chip">양정모</span><span class="chip">양지선</span><span class="chip">이수정</span><span class="chip">김한룡</span><span class="chip">최은정</span></div>
-        <p class="pmeta">법령 개정·법령해석·비조치의견 통합 조회 · 중간: GitHub Pages 기획 페이지</p>
-        <div class="lks"><a class="lk" href="https://ellaamode.github.io/teamproject/" target="_blank" rel="noopener">중간 제출 페이지 ↗</a><a class="lk ghost" href="https://wsjung-mba-kaist.github.io/team_projects.html#team8" target="_blank" rel="noopener">중간 상세 ↗</a></div>
-      </div>
-    </div>
-  </section>
-
   <footer class="foot">
-    정리 기준 2026-10-21 13:47 KST (LMS 제출물 기준) · 각 팀 페이지 내용은 이 시각 기준이며, 이후 팀에서 페이지를 수정하면 달라질 수 있습니다.<br>
-    6·10조 발표 파일은 이 문서와 같은 폴더의 <code>attachments/</code>에 있습니다 · 7조 발표 PPTX는 팀 GitHub 저장소에 있습니다 · 8조는 제출이 확인되면 갱신합니다.
+    정리 기준 2026-10-21 15:43 KST (LMS 제출물 기준) · 각 팀 페이지 내용은 이 시각 기준이며, 이후 팀에서 페이지를 수정하면 달라질 수 있습니다.<br>
+    6·10조 발표 파일은 이 문서와 같은 폴더의 <code>attachments/</code>에 있습니다 · 7조 발표 PPTX는 팀 GitHub 저장소에 있습니다
   </footer>
 </div>
 
@@ -1211,6 +1280,12 @@
           'GitHub: https://github.com/kth6449-ops/team7-stress-dashboard',
           'Swagger: https://team7-stress-dashboard.onrender.com/docs',
           '',
+          '[8조 금융규제통합조회]',
+          '발표: ' + 'https://teamproject8-service.vercel.app/',
+          '서비스: https://teamproject8-service.vercel.app/app/',
+          'GitHub: https://github.com/ellaamode/teamproject8',
+          'Swagger: https://finreg-api-nbco.onrender.com/docs',
+          '',
           '[9조 같이 갈래?]',
           '발표: ' + '(별도 발표 자료 없음)',
           '서비스: https://baf60081team9-frontend.vercel.app/',
@@ -1223,7 +1298,7 @@
           'GitHub: https://github.com/vctr7/camping-weather-planner',
           'Swagger: https://camping-weather-api.onrender.com/docs'
         ];
-        copyText(lines.join('\n'), null, '9개 조 주소가 복사되었습니다');
+        copyText(lines.join('\n'), null, '10개 조 주소가 복사되었습니다');
       });
     }
 
