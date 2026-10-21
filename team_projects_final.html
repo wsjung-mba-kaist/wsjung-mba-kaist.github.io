@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>팀 프로젝트 최종 발표 · 클라우드컴퓨팅실습</title>
+<meta name="description" content="KAIST 디지털금융 MBA 클라우드컴퓨팅실습 8주차 팀 프로젝트 최종 발표 자료 · 서비스 · GitHub · Swagger 모음">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f6fa;
+    --surface: #ffffff;
+    --surface-2: #f8f9fc;
+    --border: #e3e7ee;
+    --text: #1b2130;
+    --muted: #5d6675;
+    --faint: #8a93a3;
+    --accent: #1e3a8a;
+    --accent-soft: #e6ecfb;
+    --accent-text: #1e3a8a;
+    --warn-bg: #fff6e5;
+    --warn-border: #f2d59a;
+    --warn-text: #8a5a00;
+    --ok-bg: #e9f7ef;
+    --ok-text: #1f6b3a;
+    --err-bg: #fdecec;
+    --err-text: #a12020;
+    --chip-bg: #eef1f6;
+    --link: #1d4ed8;
+    --shadow: 0 1px 2px rgba(20, 30, 50, .05), 0 8px 24px rgba(20, 30, 50, .06);
+    --radius: 14px;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Noto Sans KR", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, -apple-system, sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    word-break: keep-all;
+  }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { font-family: var(--mono); font-size: .88em; background: var(--chip-bg); padding: 1px 6px; border-radius: 4px; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+
+  /* ---------- header ---------- */
+  header.hero {
+    background: linear-gradient(135deg, #16265c 0%, #1e3a8a 55%, #2451b8 100%);
+    color: #fff;
+    padding: 44px 0 36px;
+  }
+  .eyebrow { margin: 0 0 8px; font-size: 13px; letter-spacing: .04em; opacity: .85; font-weight: 500; }
+  header h1 { margin: 0 0 10px; font-size: 30px; line-height: 1.25; font-weight: 800; }
+  header h1 .week { display: inline-block; font-size: 14px; font-weight: 700; vertical-align: middle; margin-left: 10px; padding: 3px 10px; border-radius: 999px; background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.28); }
+  header .desc { margin: 0; font-size: 14px; opacity: .88; max-width: 740px; }
+  .hero-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 14px; }
+  .ts { display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.25); border-radius:999px; padding:5px 14px; font-size:13px; font-weight:600; }
+  .ts svg { width:14px; height:14px; }
+  .hero-link { display:inline-flex; align-items:center; gap:6px; color:#fff; font-size:13px; font-weight:600; padding:5px 14px; border-radius:999px; border:1px solid rgba(255,255,255,.25); }
+  .hero-link:hover { background: rgba(255,255,255,.12); text-decoration: none; }
+  .stats { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+  .stat {
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 10px;
+    padding: 10px 14px;
+    min-width: 120px;
+  }
+  .stat b { display: block; font-size: 22px; line-height: 1.1; font-weight: 800; }
+  .stat span { font-size: 12px; opacity: .85; }
+
+  /* ---------- sections ---------- */
+  section { margin: 28px 0; }
+  h2.sec {
+    font-size: 18px; font-weight: 800; margin: 0 0 12px;
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  }
+  h2.sec small { font-size: 12px; color: var(--faint); font-weight: 500; }
+
+  /* ---------- quick access table ---------- */
+  .quick {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .quick table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .quick th, .quick td { padding: 12px 14px; text-align: left; vertical-align: middle; border-bottom: 1px solid var(--border); }
+  .quick th { background: var(--surface-2); color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .02em; }
+  .quick tr:last-child td { border-bottom: 0; }
+  .quick .sub { color: var(--muted); font-size: 13px; }
+  .quick .mem { font-size: 13px; }
+  .quick tr.missing td { color: var(--faint); background: #fbfcfe; }
+  .quick tr.missing td b { color: var(--muted); font-weight: 600; }
+  .quick-foot { padding: 10px 14px; background: var(--surface-2); display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+
+  .lks { display: flex; flex-wrap: wrap; gap: 6px; }
+  .lk {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 12px; font-weight: 700; line-height: 1.4;
+    padding: 4px 9px; border-radius: 7px;
+    border: 1px solid var(--border); background: #fff; color: var(--text);
+    white-space: nowrap;
+  }
+  .lk:hover { background: var(--accent-soft); border-color: #c7d4f5; text-decoration: none; }
+  .lk.pres { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .lk.pres:hover { background: #172e70; }
+  .lk.ghost { color: var(--muted); font-weight: 600; }
+
+  .badge {
+    display: inline-block; padding: 3px 10px; border-radius: 999px;
+    font-size: 12px; font-weight: 700; line-height: 1.5; white-space: nowrap;
+    background: var(--accent-soft); color: var(--accent-text);
+  }
+  .badge.file { background: var(--ok-bg); color: var(--ok-text); }
+  .badge.none { background: var(--chip-bg); color: var(--faint); }
+  .badge.warn { background: var(--warn-bg); color: var(--warn-text); border: 1px solid var(--warn-border); }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    border: 1px solid var(--border); background: var(--surface);
+    color: var(--text); border-radius: 8px; padding: 6px 11px;
+    font-size: 13px; font-weight: 600; cursor: pointer; line-height: 1.3;
+    font-family: inherit; text-decoration: none; white-space: nowrap;
+  }
+  .btn:hover { background: var(--surface-2); text-decoration: none; }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn.primary:hover { background: #172e70; }
+  .btn.small { padding: 4px 9px; font-size: 12px; }
+  .btn svg { width: 14px; height: 14px; }
+  .btn.copied { background: var(--ok-bg); color: var(--ok-text); border-color: #bfe3cc; }
+  .btn:disabled { opacity: .6; cursor: progress; }
+
+  /* ---------- warm-up panel ---------- */
+  .warm { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 18px 20px; }
+  .warm-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
+  .warm-head p { margin: 0; font-size: 13px; color: var(--muted); max-width: 640px; }
+  .warm-list { margin-top: 12px; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px; }
+  .wcell { border: 1px solid var(--border); border-radius: 10px; padding: 9px 12px; background: var(--surface-2); font-size: 13px; }
+  .wcell b { display: block; font-size: 13px; }
+  .wcell a { font-family: var(--mono); font-size: 11.5px; word-break: break-all; }
+  .wstate { display: inline-block; margin-top: 4px; font-size: 12px; font-weight: 700; color: var(--faint); }
+  .wstate.run { color: var(--warn-text); }
+  .wstate.ok { color: var(--ok-text); }
+  .wstate.fail { color: var(--err-text); }
+
+  /* ---------- team cards ---------- */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    margin-bottom: 18px;
+    scroll-margin-top: 16px;
+  }
+  .card-head { display: flex; gap: 14px; align-items: flex-start; flex-wrap: wrap; }
+  .team-no {
+    flex: 0 0 auto;
+    width: 62px; height: 62px; border-radius: 14px;
+    background: var(--accent); color: #fff;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-weight: 800; line-height: 1;
+  }
+  .team-no b { font-size: 26px; }
+  .team-no span { font-size: 11px; margin-top: 3px; opacity: .85; font-weight: 600; }
+  .card-title { flex: 1 1 320px; min-width: 0; }
+  .card-title h3 { margin: 0 0 4px; font-size: 21px; font-weight: 800; line-height: 1.3; }
+  .card-title .tagline { margin: 0; color: var(--muted); font-size: 14px; }
+  .card-title .en { color: var(--faint); font-weight: 500; font-size: 14px; margin-left: 6px; }
+
+  .linkbox { margin-top: 16px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--surface-2); }
+  .lrow { display: flex; align-items: center; gap: 10px 12px; padding: 9px 14px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+  .lrow:first-child { border-top: 0; }
+  .lrow .label { flex: 0 0 78px; font-size: 12px; color: var(--faint); font-weight: 700; letter-spacing: .02em; }
+  .lrow .u { flex: 1 1 260px; min-width: 0; font-family: var(--mono); font-size: 13px; word-break: break-all; }
+  .lrow .u small { display: block; font-family: "Noto Sans KR", system-ui, sans-serif; color: var(--faint); font-size: 12px; margin-top: 1px; }
+  .lrow .actions { display: flex; gap: 6px; }
+  .lrow.file .u { font-family: inherit; font-size: 14px; }
+  .ftype { flex: 0 0 auto; display: inline-block; min-width: 46px; text-align: center; font-size: 11px; font-weight: 800; letter-spacing: .04em; padding: 3px 7px; border-radius: 6px; color: #fff; margin-right: 6px; vertical-align: 1px; }
+  .ftype.pdf { background: #b91c1c; } .ftype.html { background: #047857; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 28px; margin-top: 18px; }
+  .grid .full { grid-column: 1 / -1; }
+  .field h4 { margin: 0 0 6px; font-size: 12px; color: var(--faint); font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+  .field p { margin: 0; }
+  .field ul { margin: 0; padding-left: 18px; }
+  .field li { margin: 2px 0; }
+  .field .aside { margin-top: 6px; font-size: 13px; color: var(--muted); }
+  .members { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    display: inline-block; background: var(--chip-bg); border-radius: 999px;
+    padding: 3px 11px; font-size: 13px; font-weight: 600;
+  }
+  .chip.lead { background: var(--accent-soft); color: var(--accent-text); }
+  .chip small { font-weight: 700; color: var(--accent-text); margin-left: 4px; font-size: 11px; }
+  .tech { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tech span { background: #fff; border: 1px solid var(--border); border-radius: 6px; padding: 2px 8px; font-size: 12px; font-weight: 600; color: var(--muted); }
+  .quote { border-left: 3px solid var(--accent); padding: 6px 12px; margin: 0; background: var(--surface-2); border-radius: 0 8px 8px 0; color: var(--text); font-size: 14px; }
+  .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 13px; }
+  .flow span { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 4px 10px; font-weight: 600; }
+  .flow span small { display: block; font-weight: 400; color: var(--muted); font-size: 12px; }
+  .flow i { color: var(--faint); font-style: normal; }
+
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; }
+  .kpi { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 11px 14px; }
+  .kpi b { display: block; font-size: 22px; line-height: 1.2; font-weight: 800; color: var(--accent); font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+  .kpi span { display: block; font-size: 12.5px; color: var(--muted); line-height: 1.45; margin-top: 2px; }
+  .kpi-note { margin-top: 6px; font-size: 12px; color: var(--faint); }
+
+  .changes { margin-top: 18px; padding: 10px 14px; border-radius: 10px; background: var(--accent-soft); font-size: 13px; color: #24345f; }
+  .changes b { color: var(--accent-text); margin-right: 6px; }
+  .changes ul { margin: 4px 0 0; padding-left: 18px; }
+  .changes li { margin: 1px 0; }
+
+  /* ---------- missing teams ---------- */
+  .pending { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+  .pcard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; scroll-margin-top: 16px; }
+  .pcard-head { display: flex; gap: 12px; align-items: center; }
+  .pcard .team-no { width: 46px; height: 46px; border-radius: 12px; background: #9aa3b2; }
+  .pcard .team-no b { font-size: 20px; }
+  .pcard .team-no span { font-size: 10px; }
+  .pcard h3 { margin: 0; font-size: 16px; font-weight: 800; line-height: 1.35; }
+  .pcard .members { margin-top: 10px; }
+  .pcard .chip { font-size: 12px; padding: 2px 9px; }
+  .pcard .pmeta { margin-top: 10px; font-size: 13px; color: var(--muted); }
+  .pcard .pmeta a { word-break: break-all; }
+  .pcard .lks { margin-top: 10px; }
+
+  footer.foot { color: var(--faint); font-size: 12px; text-align: center; padding: 20px 0 40px; }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px);
+    background: #1b2130; color: #fff; padding: 10px 16px; border-radius: 10px; font-size: 13px;
+    opacity: 0; pointer-events: none; transition: all .2s ease; z-index: 50;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 720px) {
+    header h1 { font-size: 24px; }
+    header h1 .week { margin-left: 0; margin-top: 6px; }
+    .grid { grid-template-columns: 1fr; }
+    .card { padding: 18px; }
+    /* 바로가기 표를 모바일에서는 카드 목록으로 */
+    .quick thead { display: none; }
+    .quick tr { display: block; padding: 12px 14px; border-bottom: 1px solid var(--border); }
+    .quick tr:last-child { border-bottom: 0; }
+    .quick td { display: block; padding: 2px 0; border: 0; }
+    .quick td.mem::before { content: "구성원 · "; color: var(--faint); font-size: 12px; }
+    .quick td.go { margin-top: 8px; }
+    .quick td.det { display: none; }
+    .lrow .label { flex-basis: 100%; }
+    .lrow .actions { flex: 1 1 100%; }
+    .lrow .actions .btn { flex: 1 1 auto; justify-content: center; }
+  }
+  @media print {
+    body { background: #fff; }
+    header.hero { background: #1e3a8a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .card, .quick, .warm, .pcard { box-shadow: none; break-inside: avoid; }
+    .btn, .quick-foot, .toast, #warmup { display: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">KAIST 디지털금융 MBA · 클라우드컴퓨팅실습</p>
+    <h1>팀 프로젝트 최종 발표 <span class="week">8주차</span></h1>
+    <p class="desc">각 조가 제출한 최종 발표 자료, 배포된 서비스, GitHub 저장소, Swagger UI 주소를 한곳에 모았습니다. 조 이름을 누르면 상세로, 버튼을 누르면 새 탭에서 열립니다.</p>
+    <div class="hero-row">
+      <span class="ts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>정리 기준 2026년 10월 21일(수) 10:30 KST</span>
+      <a class="hero-link" href="https://wsjung-mba-kaist.github.io/team_projects.html" target="_blank" rel="noopener">중간 제출 현황 보기 ↗</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>10</b><span>전체 조</span></div>
+      <div class="stat"><b>5</b><span>최종 제출 (1·2·5·6·10조)</span></div>
+      <div class="stat"><b>5</b><span>미제출 (3·4·7·8·9조)</span></div>
+      <div class="stat"><b>5 / 5</b><span>서비스·GitHub·Swagger 접속 확인</span></div>
+      <div class="stat"><b>2</b><span>발표 파일 제출 (6·10조)</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ================= 바로가기 ================= -->
+  <section id="quick">
+    <h2 class="sec">전체 조 현황 · 바로가기 <small>1~10조 · 링크는 새 탭으로 열립니다</small></h2>
+    <div class="quick">
+      <table>
+        <thead>
+          <tr><th style="width:70px">조</th><th>프로젝트</th><th style="width:170px">구성원</th><th style="width:330px">발표 · 서비스 · 코드 · API</th><th style="width:70px"></th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge">1조</span></td>
+            <td><a href="#team1"><b>숨은여행지도</b></a><br><span class="sub">관광빅데이터 역발상 여행 서비스</span></td>
+            <td class="mem">강재구·구대로·박주원·이강훈·이재원</td>
+            <td class="go"><div class="lks">
+              <a class="lk pres" href="https://kujae.github.io/hidden-travel-map/" target="_blank" rel="noopener">발표 ↗</a>
+              <a class="lk" href="https://hidden-travel-map.vercel.app/" target="_blank" rel="noopener">서비스</a>
+              <a class="lk" href="https://github.com/KuJae/hidden-travel-map" target="_blank" rel="noopener">GitHub</a>
+              <a class="lk" href="https://hidden-travel-map-api.onrender.com/docs" target="_blank" rel="noopener">Swagger</a>
+            </div></td>
+            <td class="det"><a class="btn small" href="#team1">상세</a></td>
+          </tr>
+          <tr>
+            <td><span class="badge">2조</span></td>
+            <td><a href="#team2"><b>KHMI</b></a><br><span class="sub">주택시장 분석 웹사이트 · Korea Housing Market Intelligence</span></td>
+            <td class="mem">권태혁·노경수·박민영·박준우</td>
+            <td class="go"><div class="lks">
+              <a class="lk pres" href="https://www.khmi.kr/presentation.html#intro" target="_blank" rel="noopener">발표 ↗</a>
+              <a class="lk" href="https://www.khmi.kr/" target="_blank" rel="noopener">서비스</a>
+              <a class="lk" href="https://github.com/junoopark/realestate" target="_blank" rel="noopener">GitHub</a>
+              <a class="lk" href="https://www.khmi.kr/api/docs" target="_blank" rel="noopener">Swagger</a>
+            </div></td>
+            <td class="det"><a class="btn small" href="#team2">상세</a></td>
+          </tr>
+          <tr class="missing">
+            <td><span class="badge none">3조</span></td>
+            <td><a href="#team3"><b>Hotspot</b></a><br><span class="sub">좋아하는 장소를 모으고, 친구와 나누는 서비스</span></td>
+            <td class="mem">이새미·박건일·우동희·윤준기·홍동우</td>
+            <td class="go"><span class="badge warn">최종 자료 미제출</span></td>
+            <td class="det"><a class="btn small" href="#team3">상세</a></td>
+          </tr>
+          <tr class="missing">
+            <td><span class="badge none">4조</span></td>
+            <td><a href="#team4"><b>어디에 열까</b></a><br><span class="sub">소규모 창업 입지 리포트</span></td>
+            <td class="mem">손영훈·이재림·정윤수·김선경</td>
+            <td class="go"><span class="badge warn">최종 자료 미제출</span></td>
+            <td class="det"><a class="btn small" href="#team4">상세</a></td>
+          </tr>
+          <tr>
+            <td><span class="badge">5조</span></td>
+            <td><a href="#team5"><b>HINDSIGHT</b></a><br><span class="sub">유튜버가 오른다고 한 종목, 정말 올랐을까?</span></td>
+            <td class="mem">김지환·김현준·오선호·조인성·채재희</td>
+            <td class="go"><div class="lks">
+              <a class="lk pres" href="https://hindsight-gold.vercel.app/" target="_blank" rel="noopener">발표 ↗</a>
+              <a class="lk" href="https://hindsight-web.vercel.app/" target="_blank" rel="noopener">서비스</a>
+              <a class="lk" href="https://github.com/insung1939/hindsight" target="_blank" rel="noopener">GitHub</a>
+              <a class="lk" href="https://hindsight-api-edab.onrender.com/docs" target="_blank" rel="noopener">Swagger</a>
+            </div></td>
+            <td class="det"><a class="btn small" href="#team5">상세</a></td>
+          </tr>
+          <tr>
+            <td><span class="badge">6조</span></td>
+            <td><a href="#team6"><b>fundflow</b></a><br><span class="sub">국내 자금조달 발행시장 모니터</span></td>
+            <td class="mem">강현경·우지훈·이동영·전민찬</td>
+            <td class="go"><div class="lks">
+              <a class="lk pres" href="attachments/team06_fundflow_week8.pdf" target="_blank" rel="noopener">발표 PDF ↗</a>
+              <a class="lk" href="https://fund-flow-frontend-six.vercel.app/" target="_blank" rel="noopener">서비스</a>
+              <a class="lk" href="https://github.com/JMC-patriot/Fund-Flow" target="_blank" rel="noopener">GitHub</a>
+              <a class="lk" href="https://fundflow-api-kr3i.onrender.com/docs" target="_blank" rel="noopener">Swagger</a>
+            </div></td>
+            <td class="det"><a class="btn small" href="#team6">상세</a></td>
+          </tr>
+          <tr class="missing">
+            <td><span class="badge none">7조</span></td>
+            <td><a href="#team7"><b>금융시장 스트레스 모니터링 대시보드</b></a><br><span class="sub">환율·금리·주가·변동성 기반 위험 점수</span></td>
+            <td class="mem">김종환·김태현·서수민·정혜지·송수원</td>
+            <td class="go"><span class="badge warn">최종 자료 미제출</span></td>
+            <td class="det"><a class="btn small" href="#team7">상세</a></td>
+          </tr>
+          <tr class="missing">
+            <td><span class="badge none">8조</span></td>
+            <td><a href="#team8"><b>금융규제통합조회 (가칭)</b></a><br><span class="sub">법령 개정·해석·비조치의견 통합 조회</span></td>
+            <td class="mem">양정모·양지선·이수정·김한룡·최은정</td>
+            <td class="go"><span class="badge warn">최종 자료 미제출</span></td>
+            <td class="det"><a class="btn small" href="#team8">상세</a></td>
+          </tr>
+          <tr class="missing">
+            <td><span class="badge none">9조</span></td>
+            <td><a href="#team9"><b>오늘 뭐 하지? 같이 갈래?</b></a><br><span class="sub">Activity First · 활동 탐색 + 모임 연결</span></td>
+            <td class="mem">이동주·주연경·박찬휘·신지호·이영선</td>
+            <td class="go"><span class="badge warn">최종 자료 미제출</span></td>
+            <td class="det"><a class="btn small" href="#team9">상세</a></td>
+          </tr>
+          <tr>
+            <td><span class="badge">10조</span></td>
+            <td><a href="#team10"><b>camp:on</b></a><br><span class="sub">캠핑 날씨 플래너</span></td>
+            <td class="mem">박지호·이강병·이상석·주재근</td>
+            <td class="go"><div class="lks">
+              <a class="lk pres" href="attachments/team10_camp-on_presentation.html" target="_blank" rel="noopener">발표 HTML ↗</a>
+              <a class="lk" href="https://camping-weather-planner.vercel.app/" target="_blank" rel="noopener">서비스</a>
+              <a class="lk" href="https://github.com/vctr7/camping-weather-planner" target="_blank" rel="noopener">GitHub</a>
+              <a class="lk" href="https://camping-weather-api.onrender.com/docs" target="_blank" rel="noopener">Swagger</a>
+            </div></td>
+            <td class="det"><a class="btn small" href="#team10">상세</a></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="quick-foot">
+        <span>제출한 5개 조의 발표·서비스·GitHub·Swagger 주소를 한 번에 복사할 수 있습니다.</span>
+        <button class="btn small" id="copyAll">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          주소 전체 복사
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 서버 깨우기 ================= -->
+  <section id="warmup">
+    <div class="warm">
+      <div class="warm-head">
+        <div>
+          <h2 class="sec" style="margin-bottom:4px">발표 전 API 서버 깨우기 <small>Render 무료 플랜</small></h2>
+          <p>다섯 조의 백엔드는 모두 Render 무료 플랜이라, 한동안 요청이 없으면 잠들어 첫 응답에 20~60초가 걸립니다. 발표 5분 전쯤 아래 버튼을 한 번 누르면 다섯 서버에 요청을 보내 미리 깨워 둡니다.</p>
+        </div>
+        <button class="btn primary" id="warmBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          서버 5곳 깨우기
+        </button>
+      </div>
+      <div class="warm-list">
+        <div class="wcell"><b>1조 숨은여행지도</b><a href="https://hidden-travel-map-api.onrender.com/docs" target="_blank" rel="noopener">hidden-travel-map-api.onrender.com</a><br><span class="wstate" data-warm="https://hidden-travel-map-api.onrender.com/docs">대기</span></div>
+        <div class="wcell"><b>2조 KHMI</b><a href="https://www.khmi.kr/api/docs" target="_blank" rel="noopener">www.khmi.kr/api</a><br><span class="wstate" data-warm="https://www.khmi.kr/api/docs">대기</span></div>
+        <div class="wcell"><b>5조 HINDSIGHT</b><a href="https://hindsight-api-edab.onrender.com/docs" target="_blank" rel="noopener">hindsight-api-edab.onrender.com</a><br><span class="wstate" data-warm="https://hindsight-api-edab.onrender.com/docs">대기</span></div>
+        <div class="wcell"><b>6조 fundflow</b><a href="https://fundflow-api-kr3i.onrender.com/docs" target="_blank" rel="noopener">fundflow-api-kr3i.onrender.com</a><br><span class="wstate" data-warm="https://fundflow-api-kr3i.onrender.com/docs">대기</span></div>
+        <div class="wcell"><b>10조 camp:on</b><a href="https://camping-weather-api.onrender.com/docs" target="_blank" rel="noopener">camping-weather-api.onrender.com</a><br><span class="wstate" data-warm="https://camping-weather-api.onrender.com/docs">대기</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 조별 상세 ================= -->
+  <section id="teams">
+    <h2 class="sec">조별 상세 · 최종 제출 <small>1·2·5·6·10조 · 각 조 발표 자료 내용을 요약</small></h2>
+
+    <!-- 1조 -->
+    <article class="card" id="team1">
+      <div class="card-head">
+        <div class="team-no"><b>1</b><span>조</span></div>
+        <div class="card-title">
+          <h3>숨은여행지도 <span class="en">Hidden Travel Map</span></h3>
+          <p class="tagline">관광빅데이터로 ‘사람들이 덜 가는 곳’을 먼저 찾아주는 역발상 여행 서비스 — 전국 230개 시군구의 방문량을 지도 색으로 보여주고, 연한 곳을 누르면 그 지역 관광지 사진이 나옵니다.</p>
+        </div>
+      </div>
+      <div class="linkbox">
+        <div class="lrow"><span class="label">발표 페이지</span><a class="u" href="https://kujae.github.io/hidden-travel-map/" target="_blank" rel="noopener">https://kujae.github.io/hidden-travel-map/</a><div class="actions"><a class="btn small primary" href="https://kujae.github.io/hidden-travel-map/" target="_blank" rel="noopener">열기 ↗</a><button class="btn small copy" data-url="https://kujae.github.io/hidden-travel-map/">복사</button></div></div>
+        <div class="lrow"><span class="label">서비스</span><a class="u" href="https://hidden-travel-map.vercel.app/" target="_blank" rel="noopener">https://hidden-travel-map.vercel.app/<small>데이터 분석 페이지: /analysis.html</small></a><div class="actions"><a class="btn small" href="https://hidden-travel-map.vercel.app/" target="_blank" rel="noopener">열기 ↗</a><button class="btn small copy" data-url="https://hidden-travel-map.vercel.app/">복사</button></div></div>
+        <div class="lrow"><span class="label">GitHub</span><a class="u" href="https://github.com/KuJae/hidden-travel-map" target="_blank" rel="noopener">https://github.com/KuJae/hidden-travel-map</a><div class="actions"><a class="btn small" href="https://github.com/KuJae/hidden-travel-map" target="_blank" rel="noopener">열기 ↗</a><button class="btn small copy" data-url="https://github.com/KuJae/hidden-travel-map">복사</button></div></div>
+        <div class="lrow"><span class="label">Swagger UI</span><a class="u" href="https://hidden-travel-map-api.onrender.com/docs" target="_blank" rel="noopener">https://hidden-travel-map-api.onrender.com/docs<small>제출 글에는 없고 팀 발표 페이지에 기재된 주소</small></a><div class="actions"><a class="btn small" href="https://hidden-travel-map-api.onrender.com/docs" target="_blank" rel="noopener">열기 ↗</a><button class="btn small copy" data-url="https://hidden-travel-map-api.onrender.com/docs">복사</button></div></div>
+      </div>
+      <div class="grid">
+        <div class="field">
+          <h4>구성원 (5명)</h4>
+          <div class="members">
+            <span class="chip">강재구</span><span class="chip lead">구대로 <small>제출</small></span><span class="chip">박주원</span><span class="chip">이강훈</span><span class="chip">이재원</span>
+          </div>
+        </div>
+        <div class="field">
+          <h4>핵심 메시지</h4>
+          <p class="quote">“사람은 적게 가지만, 볼 것은 있습니다.”</p>
+        </div>
+        <div class="field">
+          <h4>해결하려는 문제</h4>
+          <p>여행 앱과 SNS는 인기순으로 보여주므로, 덜 알려진 지역이 정말 한산한지·가볼 만한 곳이 있는지 판단할 근거가 없음 → 실제 방문 데이터로 ‘덜 가는 곳’을, 관광지 사진으로 ‘볼 것이 있는지’를 같은 화면에서 확인</p>
+        </div>
+        <div class="field">
+          <h4>주요 화면 · 기능</h4>
+          <ul>
+            <li><b>지도</b> — 방문량 5단계 코로플레스, 숨은 지역 후보 69곳 패널</li>
+            <li><b>지역 상세</b> — Ghost Index, 하루 평균 방문, 전국 순위, 사진 6장</li>
+            <li><b>관심 관광지 비교</b> — ♡로 담아 이용시간·쉬는날·주차·방문량 비교, 비교 링크 공유</li>
+            <li><b>데이터 분석</b> — 차트 5개와 표 보기</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>데이터 출처</h4>
+          <ul>
+            <li>한국관광공사 지역별 방문자수 (관광빅데이터) — 2026.8.2~31, 24,208행</li>
+            <li>TourAPI 국문 관광정보 — 사진 있는 관광지 17,658곳</li>
+            <li>SGIS 행정구역 경계 — 시 단위 230개 GeoJSON</li>
+            <li>행정안전부 인구감소지역 명단 (비즈니스 분석용)</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>서비스 아키텍처</h4>
+          <div class="flow"><span>공공데이터 3종</span><i>→</i><span>Python 수집기</span><i>→</i><span>PostgreSQL<small>Supabase 서울</small></span><i>→</i><span>FastAPI<small>Render</small></span><i>→</i><span>HTML·JS·Leaflet<small>Vercel</small></span></div>
+          <p class="aside">GET 엔드포인트 8개 · 테이블 5개 · RLS를 켜고 공개 키 권한 회수 · Ghost Index = 100 − 방문량 백분위</p>
+        </div>
+        <div class="field full">
+          <h4>데이터 분석·정리 결과</h4>
+          <div class="kpis">
+            <div class="kpi"><b>0.06</b><span>사진 있는 관광지 수와 방문량의 상관계수 — 볼거리와 방문량은 거의 무관</span></div>
+            <div class="kpi"><b>98배</b><span>지역 간 하루 방문량 차이 (영양군 6,432명 ↔ 강남구 631,565명)</span></div>
+            <div class="kpi"><b>55.8%</b><span>전체 방문자 중 현지인 비중 → 외지인+외국인만 집계</span></div>
+            <div class="kpi"><b>64 / 69</b><span>숨은 지역 후보 중 행정안전부 지정 인구감소지역</span></div>
+          </div>
+        </div>
+        <div class="field full">
+          <h4>비즈니스 모델</h4>
+          <p>여행자에게는 무료, <b>지자체와 협업</b>해 수익 — 공동 캠페인(이달의 숨은 여행지), 지자체 방문 리포트 구독, 관광 콘텐츠 협업. “순위는 팔지 않습니다” 원칙으로 Ghost Index는 협업 여부와 무관하게 계산. 현재 운영비 월 0원.</p>
+        </div>
+      </div>
+      <div class="changes"><b>중간 발표 대비</b>숨은 지역 기준을 방문량 하위 20% → 30%(69곳)로 조정 · 관심 관광지 비교·공유 기능 추가 · 테마 탐색은 이번 범위에서 제외</div>
+    </article>
+
+    <!-- 2조 -->
+    <article class="card" id="team2">
+      <div class="card-head">
+        <div class="team-no"><b>2</b><span>조</span></div>
+        <div class="card-title">
+          <h3>KHMI <span class="en">Korea Housing Market Intelligence</span></h3>
+          <p class="tagline">흩어진 부동산 공공 통계와 공식 정책 발표를 하나의 흐름으로 연결한 한국 주택시장 분석 사이트 — 중간 발표 ‘주택시장 분석 웹사이트’의 최종 버전입니다.</p>
+        </div>
+      </div>
+      <div class="linkbox">
+        <div class="lrow"><span class="label">발표 페이지</span><a class="u" href="https://www.khmi.kr/presentation.html#intro" target="_blank" rel="noopener">https://www.khmi.kr/presentation.html#intro</a><div class="actions"><a class="btn small primary" href="https://www.khmi.kr/presentation.html#intro" target="_blank" rel="noopener">열기 ↗</a><button class="btn small copy" data-url="https://www.khmi.kr/presentation.html#intro">복사</button></div></div>
+        <div class="lrow"><span class="label">서비스</span><a class="u" href="https://www.khmi.kr/" target="_blank" rel="noopener">https://www.khmi.kr/<small>Vercel 배포 + 개인 도메인 연결</small></a><div class="actions"><a class="btn small" href="https://www.khmi.kr/" target="_blank" rel="noopener">열기 ↗</a><button class="btn small copy" data-url="https://www.khmi.kr/">복사</button></div></div>
+        <div class="lrow"><span class="label">GitHub</span><a class="u" href="https://github.com/junoopark/realestate" target="_blank" rel="noopener">https://github.com/junoopark/realestate</a><div class="actions"><a class="btn small" href="https://github.com/junoopark/realestate" target="_blank" rel="noopener">열기 ↗</a><button class="btn small copy" data-url="https://github.com/junoopark/realestate">복사</button></div></div>
+        <div class="lrow"><span class="label">Swagger UI</span><a class="u" href="https://www.khmi.kr/api/docs" target="_blank" rel="noopener">https://www.khmi.kr/api/docs</a><div class="actions"><a class="btn small" href="https://www.khmi.kr/api/docs" target="_blank" rel="noopener">열기 ↗</a><button class="btn small copy" data-url="https://www.khmi.kr/api/docs">복사</button></div></div>
+      </div>
+      <div class="grid">
+        <div class="field">
+          <h4>구성원 (4명)</h4>
+          <div class="members">
+            <span class="chip">권태혁</span><span class="chip">노경수</span><span class="chip">박민영</span><span class="chip lead">박준우 <small>제출</small></span>
+          </div>
+        </div>
+        <div class="field">
+          <h4>핵심 메시지</h4>
+          <p class="quote">“분석하기 전에, 자료를 찾고 맞추는 데 시간을 쓰고 있었습니다.”</p>
+        </div>
+        <div class="field">
+          <h4>해결하려는 문제</h4>
+          <ul>
+            <li>가격 하나로는 판단이 어렵고 인구·공급·금리·거래를 함께 봐야 하는데, 자료마다 지역·단위·공표 주기가 다름</li>
+            <li>뉴스 제목만으로는 정책의 대상·조건·이전 정책과의 연결을 놓치기 쉬움</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>주요 화면 · 기능</h4>
+          <ul>
+            <li><b>시장 한눈에</b> — 홈, 지역 지도, 주요 동향</li>
+            <li><b>데이터 비교</b> — 지역·기간·수준/전년동기 대비</li>
+            <li><b>정책 흐름</b> — 원문 발췌 자동 요약, 새 발표, 정책 연표</li>
+            <li><b>부동산 기초</b> — 용어·거래 절차·개발/투자 흐름</li>
+            <li>Google 로그인 후 CSV·엑셀 내려받기 (열람은 로그인 없이)</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>데이터 출처</h4>
+          <ul>
+            <li><b>정량 Open API 4개</b> — 한국부동산원 R-ONE · 한국은행 ECOS · 통계청 KOSIS · 국토교통부 실거래</li>
+            <li><b>정책 발표</b> — 국토교통부·행정안전부 RSS, 금융위원회 보도자료 목록 (robots.txt 확인, 6시간마다)</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>서비스 아키텍처</h4>
+          <div class="flow"><span>GitHub Actions<small>예약 실행</small></span><i>→</i><span>FastAPI<small>Render · 수집·가공</small></span><i>→</i><span>PostgreSQL<small>Supabase</small></span><i>→</i><span>www.khmi.kr<small>Vercel</small></span></div>
+          <p class="aside">정량 매일 09:40 KST · 정책 6시간 간격 · 앱 테이블 13개(정량 6 · 정성 5 · 이용 기록 2) · 인증은 Supabase Auth(Google OAuth)</p>
+        </div>
+        <div class="field full">
+          <h4>데이터 규모</h4>
+          <div class="kpis">
+            <div class="kpi"><b>51</b><span>화면에서 제공하는 변수 (49개 API 자동 갱신)</span></div>
+            <div class="kpi"><b>4</b><span>정량 Open API 체계</span></div>
+            <div class="kpi"><b>3</b><span>정책 수집 기관 (국토부·행안부·금융위)</span></div>
+            <div class="kpi"><b>17</b><span>비교 가능한 시·도</span></div>
+          </div>
+        </div>
+        <div class="field full">
+          <h4>비즈니스 모델</h4>
+          <p>공개 서비스로 데이터와 이용 기록을 쌓은 뒤 → 관심 기반 큐레이션(이달의 차트, 관심 지역·지표) → 맞춤 리포트 → 예측 성능과 실무 수요가 검증된 기능만 선택적 유료화. “유료화의 출발점은 기능 수가 아니라 반복해서 찾는 정보와 검증된 효용.”</p>
+        </div>
+      </div>
+      <div class="changes"><b>중간 발표 대비</b>서비스 이름 KHMI · 개인 도메인 연결 (중간: realestate-mocha-two-29.vercel.app) · 정책 발표(정성 데이터)와 부동산 기초 학습 추가 · 위험 점수·예측 모델은 백테스트 검증 후 다음 단계 과제로 제시</div>
+    </article>
+
+    <!-- 5조 -->
+    <article class="card" id="team5">
+      <div class="card-head">
+        <div class="team-no"><b>5</b><span>조</span></div>
+        <div class="card-title">
+          <h3>HINDSIGHT <span class="en">유튜버가 오른다고 한 종목, 정말 올랐을까?</span></h3>
+          <p class="tagline">주식·코인 유튜브 영상 제목에서 ‘오른다’고 한 종목을 찾아, 그 뒤 5·20·60거래일 주가를 전부 세는 서비스</p>
+        </div>
+      </div>
+      <div class="linkbox">
+        <div class="lrow"><span class="label">발표 페이지</span><a class="u" href="https://hindsight-gold.vercel.app/" target="_blank" rel="noopener">https://hindsight-gold.vercel.app/<small>← → 키로 넘김 · 부록 19·20장에 API·DB 문서</small></a><div class="actions"><a class="btn small primary" href="https://hindsight-gold.vercel.app/" target="_blank" rel="noopener">열기 ↗</a><button class="btn small copy" data-url="https://hindsight-gold.vercel.app/">복사</button></div></div>
+        <div class="lrow"><span class="label">서비스</span><a class="u" href="https://hindsight-web.vercel.app/" target="_blank" rel="noopener">https://hindsight-web.vercel.app/</a><div class="actions"><a class="btn small" href="https://hindsight-web.vercel.app/" target="_blank" rel="noopener">열기 ↗</a><button class="btn small copy" data-url="https://hindsight-web.vercel.app/">복사</button></div></div>
+        <div class="lrow"><span class="label">GitHub</span><span class="u"><a href="https://github.com/insung1939/hindsight" target="_blank" rel="noopener">https://github.com/insung1939/hindsight</a><small><a href="https://github.com/insung1939/hindsight/blob/main/docs/api.md" target="_blank" rel="noopener">API 설명 문서 (docs/api.md)</a> · <a href="https://github.com/insung1939/hindsight/blob/main/docs/db.md" target="_blank" rel="noopener">DB 테이블 문서 (docs/db.md)</a></small></span><div class="actions"><a class="btn small" href="https://github.com/insung1939/hindsight" target="_blank" rel="noopener">열기 ↗</a><button class="btn small copy" data-url="https://github.com/insung1939/hindsight">복사</button></div></div>
+        <div class="lrow"><span class="label">Swagger UI</span><a class="u" href="https://hindsight-api-edab.onrender.com/docs" target="_blank" rel="noopener">https://hindsight-api-edab.onrender.com/docs</a><div class="actions"><a class="btn small" href="https://hindsight-api-edab.onrender.com/docs" target="_blank" rel="noopener">열기 ↗</a><button class="btn small copy" data-url="https://hindsight-api-edab.onrender.com/docs">복사</button></div></div>
+      </div>
+      <div class="grid">
+        <div class="field">
+          <h4>구성원 (5명)</h4>
+          <div class="members">
+            <span class="chip">김지환</span><span class="chip">김현준</span><span class="chip">오선호</span><span class="chip lead">조인성 <small>제출</small></span><span class="chip">채재희</span>
+          </div>
+        </div>
+        <div class="field">
+          <h4>데이터가 말하는 한 문장</h4>
+          <p class="quote">“유튜브가 ‘오른다’고 할 때는 이미 늦었다.”</p>
+        </div>
+        <div class="field">
+          <h4>해결하려는 문제 · 방법</h4>
+          <p>애널리스트 리포트는 적중률을 보여주는 서비스가 있지만, 주식·코인 유튜브의 ‘오른다’는 전망은 아무도 재지 않음 → 영상 1편을 하나의 사건으로 보고, 제목에서 종목·논조를 뽑아 이후 수익률과 시장 대비 초과수익을 계산</p>
+        </div>
+        <div class="field">
+          <h4>주요 화면</h4>
+          <ul>
+            <li><b>홈</b> — 지금 뜨는 종목 (언급 급증)</li>
+            <li><b>언급 뒤에</b> — 전체 성적표, 수익률 분포</li>
+            <li><b>채널</b> — 누가 맞았나 (TOP 3 · BOTTOM 3)</li>
+            <li><b>종목</b> — 주가 차트 위 언급 시점</li>
+            <li><b>데이터</b> — 출처와 가공 과정</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>데이터 출처 (공개 API 6개)</h4>
+          <ul>
+            <li>YouTube Data API v3 — 채널·제목·게시일·조회수</li>
+            <li>DART 기업코드 · DART 공시검색 — 종목 사전, 공시 49,099건</li>
+            <li>공공데이터포털 주식시세정보 V2 · Yahoo Finance · 업비트 Open API</li>
+          </ul>
+          <p class="aside">채널은 규칙으로 선정: 검색 후보 547 → 측정 272 → 채택 51 (주식 38 · 코인 13)</p>
+        </div>
+        <div class="field">
+          <h4>서비스 아키텍처</h4>
+          <div class="flow"><span>외부 API 6개</span><i>→</i><span>GitHub Actions<small>매일 07:10 배치</small></span><i>→</i><span>FastAPI<small>Render · 서비스 4개</small></span><i>→</i><span>PostgreSQL<small>Supabase</small></span><i>→</i><span>React<small>Vercel</small></span></div>
+          <p class="aside">스키마 4개 · 테이블 9개 · 엔드포인트 36개(읽기 24 · 내부·상태 12) · 무료 512MB 한도에 맞춰 프로세스 5개 → 1개(95MB)</p>
+        </div>
+        <div class="field full">
+          <h4>분석 결과</h4>
+          <div class="kpis">
+            <div class="kpi"><b>45,660</b><span>분석한 영상 제목 (51개 채널 · 1년)</span></div>
+            <div class="kpi"><b>13,609</b><span>20거래일 성적표가 나온 종목 언급</span></div>
+            <div class="kpi"><b>42%</b><span>낙관 언급 뒤 20거래일 상승 확률</span></div>
+            <div class="kpi"><b>−2.9%</b><span>시장 대비 수익률 (20거래일)</span></div>
+            <div class="kpi"><b>0.92배</b><span>거래량 (언급 뒤 ÷ 언급 앞)</span></div>
+          </div>
+          <p class="kpi-note">팀이 밝힌 한계: 제목만 분석 · 상관이지 인과 아님 · 종가 기준·거래 비용 미반영 · 학습용 통계이며 투자 권유 아님</p>
+        </div>
+        <div class="field full">
+          <h4>활용 · 비즈니스 모델</h4>
+          <p>개인투자자(사기 전 두 번 클릭: 종목·채널 확인)와 리서치·콘텐츠팀(출연자·인용 채널 선정) 대상. 언급 급증 알림 구독, 채널 적중 리포트, 데이터 API로 수익 · 운영비 ≈ 0 (무료 티어 + 하루 1회 배치, YouTube 쿼터 300유닛).</p>
+        </div>
+      </div>
+      <div class="changes"><b>중간 발표 대비</b>채널 20개 → 51개로 확대 · 발표 페이지(hindsight-gold)와 서비스(hindsight-web) 분리 · 업종 테마 사전으로 종목 매칭 성공률 26% → 65%</div>
+    </article>
+
+    <!-- 6조 -->
+    <article class="card" id="team6">
+      <div class="card-head">
+        <div class="team-no"><b>6</b><span>조</span></div>
+        <div class="card-title">
+          <h3>fundflow <span class="en">국내 자금조달 발행시장 모니터</span></h3>
+          <p class="tagline">회사채·CB·BW·EB·RCPS·유상증자·IPO·CP·단기사채를 DART 공시로 매일 모아, 발행조건·만기·메자닌 오버행·주관사 순위를 한 화면에서 보는 서비스</p>
+        </div>
+      </div>
+      <div class="linkbox">
+        <div class="lrow file"><span class="label">발표 자료</span><span class="u"><span class="ftype pdf">PDF</span>fundflow 8주차 발표 <small style="display:inline;margin-left:6px">13장 · 2.9MB</small></span><div class="actions"><a class="btn small primary" href="attachments/team06_fundflow_week8.pdf" target="_blank" rel="noopener">열기 ↗</a><a class="btn small" href="attachments/team06_fundflow_week8.pdf" download>내려받기</a></div></div>
+        <div class="lrow"><span class="label">서비스</span><a class="u" href="https://fund-flow-frontend-six.vercel.app/" target="_blank" rel="noopener">https://fund-flow-frontend-six.vercel.app/</a><div class="actions"><a class="btn small" href="https://fund-flow-frontend-six.vercel.app/" target="_blank" rel="noopener">열기 ↗</a><button class="btn small copy" data-url="https://fund-flow-frontend-six.vercel.app/">복사</button></div></div>
+        <div class="lrow"><span class="label">GitHub</span><a class="u" href="https://github.com/JMC-patriot/Fund-Flow" target="_blank" rel="noopener">https://github.com/JMC-patriot/Fund-Flow<small>API·DB 문서: 저장소 docs/API.md · docs/DB.md</small></a><div class="actions"><a class="btn small" href="https://github.com/JMC-patriot/Fund-Flow" target="_blank" rel="noopener">열기 ↗</a><button class="btn small copy" data-url="https://github.com/JMC-patriot/Fund-Flow">복사</button></div></div>
+        <div class="lrow"><span class="label">Swagger UI</span><a class="u" href="https://fundflow-api-kr3i.onrender.com/docs" target="_blank" rel="noopener">https://fundflow-api-kr3i.onrender.com/docs</a><div class="actions"><a class="btn small" href="https://fundflow-api-kr3i.onrender.com/docs" target="_blank" rel="noopener">열기 ↗</a><button class="btn small copy" data-url="https://fundflow-api-kr3i.onrender.com/docs">복사</button></div></div>
+      </div>
+      <div class="grid">
+        <div class="field">
+          <h4>구성원 (4명)</h4>
+          <div class="members">
+            <span class="chip">강현경</span><span class="chip">우지훈</span><span class="chip">이동영</span><span class="chip lead">전민찬 <small>제출</small></span>
+          </div>
+        </div>
+        <div class="field">
+          <h4>핵심 메시지</h4>
+          <p class="quote">“흩어진 공시를 의사결정 화면으로”</p>
+        </div>
+        <div class="field">
+          <h4>사용자별 질문</h4>
+          <ul>
+            <li><b>IB·DCM 실무자</b> — “이 조건이 시장 대비 적정한가?”</li>
+            <li><b>투자자·애널리스트</b> — “곧 풀릴 물량이 얼마인가?”</li>
+            <li><b>기업 재무·크레딧</b> — “만기 상환 부담은 언제 오나?”</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>주요 화면 (탭 5개)</h4>
+          <ul>
+            <li><b>발행시장 Overview</b> — 연·월별 × 증권 9종 발행금액</li>
+            <li><b>만기 Monitor</b> — 만기 임박 순, 6개월 내 강조</li>
+            <li><b>회사 상세</b> — 재무제표, 회차별 오버행, 발행 시뮬레이션</li>
+            <li><b>메자닌 오버행</b> — CB·BW·EB 잔액, 잠재 희석률</li>
+            <li><b>리그테이블</b> — 대표주관·인수 금액 순위</li>
+            <li>공통: 발행조건 벤치마크 (P10~P90 분포)</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>데이터 출처</h4>
+          <ul>
+            <li>금융감독원 DART OpenAPI — 공시검색·발행결정·증권신고서·정기보고서·재무제표·공시 원문</li>
+            <li>한국거래소 KRX Open API — 유가·코스닥 일별매매</li>
+            <li>KRX KIND 상장법인 목록 — 상장일 (IPO 구분)</li>
+          </ul>
+          <p class="aside">수집 기간 2020.01 ~ 현재</p>
+        </div>
+        <div class="field">
+          <h4>서비스 아키텍처</h4>
+          <div class="flow"><span>DART · KRX</span><i>→</i><span>Python 수집기<small>GitHub Actions 3시간마다</small></span><i>→</i><span>PostgreSQL<small>Supabase 서울</small></span><i>→</i><span>FastAPI<small>Render</small></span><i>→</i><span>HTML·JS<small>Vercel</small></span></div>
+          <p class="aside">REST API 16개 · 테이블 9개 (companies 중심) · 모두 무료 플랜으로 운영</p>
+        </div>
+        <div class="field full">
+          <h4>데이터 분석·정리 결과</h4>
+          <div class="kpis">
+            <div class="kpi"><b>278,088</b><span>정리한 증권 (9종 · 정정·중복 제외)</span></div>
+            <div class="kpi"><b>4,655</b><span>발행 회사</span></div>
+            <div class="kpi"><b>25.9조</b><span>메자닌 오버행 잔존 1,549건 (3개월 내 청구 시작 2.6조)</span></div>
+            <div class="kpi"><b>3.6조</b><span>2023년 IPO 규모 (2021~22년 연 15~17조에서 급감)</span></div>
+          </div>
+          <p class="kpi-note">2025년 사모 CB 416건 중앙값: 표면이자율 0% · 만기이자율 3% · 리픽싱 하한 70% · 만기 3년</p>
+        </div>
+        <div class="field full">
+          <h4>비즈니스 모델</h4>
+          <p>무료(개요·만기 Monitor 기본 조회)로 넓히고 → Pro 구독(오버행·벤치마크 전체, CSV 무제한, 관심 기업) → 기관(데이터 API·맞춤 리포트). 대상: 증권사 IB·DCM, 메자닌·PE 펀드, 상장사 재무·IR, 리서치·언론. 현재 운영비 0원.</p>
+        </div>
+      </div>
+      <div class="changes"><b>중간 발표 대비</b>대상 증권 5종(CB·EB·BW·회사채·유상증자) → 9종(RCPS·IPO·CP·단기사채 추가) · 서비스 주소 변경 (중간: fundflow-roan.vercel.app 소개 페이지) · 발표는 PDF 슬라이드로 제출 · 제출 글의 주소에 https://가 빠져 있어 링크로 정리</div>
+    </article>
+
+    <!-- 10조 -->
+    <article class="card" id="team10">
+      <div class="card-head">
+        <div class="team-no"><b>10</b><span>조</span></div>
+        <div class="card-title">
+          <h3>camp:on <span class="en">캠핑 날씨 플래너</span></h3>
+          <p class="tagline">고캠핑·기상청 공공데이터로 캠핑장 탐색부터 여행 날짜의 날씨 확인, 개인 일정 저장까지 연결한 웹 서비스 — 중간 발표 ‘캠핑 플래너’의 최종 버전입니다.</p>
+        </div>
+      </div>
+      <div class="linkbox">
+        <div class="lrow file"><span class="label">발표 자료</span><span class="u"><span class="ftype html">HTML</span>camp:on 발표 <small style="display:inline;margin-left:6px">14장 + 부록 · 왼쪽 실제 서비스 + 오른쪽 슬라이드</small></span><div class="actions"><a class="btn small primary" href="attachments/team10_camp-on_presentation.html" target="_blank" rel="noopener">열기 ↗</a><a class="btn small" href="attachments/team10_camp-on_presentation.html" download>내려받기</a></div></div>
+        <div class="lrow"><span class="label">서비스</span><a class="u" href="https://camping-weather-planner.vercel.app/" target="_blank" rel="noopener">https://camping-weather-planner.vercel.app/<small>제출 글에는 ‘팀 페이지’로 기재</small></a><div class="actions"><a class="btn small" href="https://camping-weather-planner.vercel.app/" target="_blank" rel="noopener">열기 ↗</a><button class="btn small copy" data-url="https://camping-weather-planner.vercel.app/">복사</button></div></div>
+        <div class="lrow"><span class="label">GitHub</span><a class="u" href="https://github.com/vctr7/camping-weather-planner" target="_blank" rel="noopener">https://github.com/vctr7/camping-weather-planner</a><div class="actions"><a class="btn small" href="https://github.com/vctr7/camping-weather-planner" target="_blank" rel="noopener">열기 ↗</a><button class="btn small copy" data-url="https://github.com/vctr7/camping-weather-planner">복사</button></div></div>
+        <div class="lrow"><span class="label">Swagger UI</span><a class="u" href="https://camping-weather-api.onrender.com/docs" target="_blank" rel="noopener">https://camping-weather-api.onrender.com/docs</a><div class="actions"><a class="btn small" href="https://camping-weather-api.onrender.com/docs" target="_blank" rel="noopener">열기 ↗</a><button class="btn small copy" data-url="https://camping-weather-api.onrender.com/docs">복사</button></div></div>
+      </div>
+      <div class="grid">
+        <div class="field">
+          <h4>구성원 (4명)</h4>
+          <div class="members">
+            <span class="chip">박지호</span><span class="chip">이강병</span><span class="chip">이상석</span><span class="chip lead">주재근 <small>제출</small></span>
+          </div>
+        </div>
+        <div class="field">
+          <h4>핵심 메시지</h4>
+          <p class="quote">“어디로 떠날지, 날씨까지 한 번에.”</p>
+        </div>
+        <div class="field">
+          <h4>해결하려는 문제</h4>
+          <p>초보·가족·주말 캠퍼가 캠핑장과 날씨를 따로 찾아 비교해야 하는 수고 — “이번 주말 강원도에서 시설도 좋고 날씨도 맞는 캠핑장을 찾고 싶다.”</p>
+        </div>
+        <div class="field">
+          <h4>사용 흐름</h4>
+          <div class="flow"><span>① 탐색<small>지역·날짜·유형 검색</small></span><i>→</i><span>② 확인<small>카드·날씨 패널</small></span><i>→</i><span>③ 저장<small>로그인 후 하트</small></span><i>→</i><span>④ 다시 보기<small>내 플랜</small></span></div>
+        </div>
+        <div class="field">
+          <h4>데이터 출처</h4>
+          <ul>
+            <li>한국관광공사 고캠핑 정보 조회서비스 (basedList)</li>
+            <li>기상청 중기예보 — 3~10일 뒤 날씨·강수확률·기온</li>
+            <li>기상청 단기예보 — 오늘~3일 뒤, 캠핑장 좌표 기준</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>서비스 아키텍처</h4>
+          <div class="flow"><span>React + TS<small>Vercel</small></span><i>→</i><span>FastAPI<small>Render · 목록 캐시 1시간</small></span><i>→</i><span>고캠핑 · 기상청</span></div>
+          <p class="aside">로그인·플랜 저장은 브라우저 → Supabase Auth + PostgreSQL 직접 호출, 행 단위 보안(RLS)으로 본인 플랜만 조회·저장·삭제 · 공공데이터 키는 백엔드 환경변수에 보관</p>
+        </div>
+        <div class="field full">
+          <h4>구현 규모</h4>
+          <div class="kpis">
+            <div class="kpi"><b>4</b><span>API 엔드포인트 (/health · /api/regions · /api/campgrounds · /api/weather)</span></div>
+            <div class="kpi"><b>2</b><span>DB 테이블 (camping_plans · regional_forecast_mapping)</span></div>
+            <div class="kpi"><b>17</b><span>시·도 지역 분류</span></div>
+            <div class="kpi"><b>13~15분</b><span>시나리오 시연 (화면 조작 → API 요청 → 코드 → 결과)</span></div>
+          </div>
+        </div>
+        <div class="field full">
+          <h4>비즈니스 모델</h4>
+          <p>사용자 기본 기능 무료, 수익안은 예약·용품 제휴와 광고 표시 유료 노출 — 팀이 ‘기획안’으로 명시했고 결제·광고·제휴 정산은 이번 구현 범위에 포함하지 않음. 캠핑장 목록 캐시로 요청량과 운영 비용 관리.</p>
+        </div>
+      </div>
+      <div class="changes"><b>중간 발표 대비</b>소개 HTML(기획) → 실제 배포 서비스 · 서비스 이름 camp:on · 중간 기획의 즐겨찾기·계획 저장을 Supabase Auth + RLS로 구현</div>
+    </article>
+  </section>
+
+  <!-- ================= 미제출 ================= -->
+  <section id="pending">
+    <h2 class="sec">최종 자료 미제출 조 <small>3·4·7·8·9조 · 10월 21일 10:30 기준 · 중간 제출 자료로 연결</small></h2>
+    <div class="pending">
+      <div class="pcard" id="team3">
+        <div class="pcard-head"><div class="team-no"><b>3</b><span>조</span></div><h3>Hotspot<br><span class="badge warn">최종 자료 미제출</span></h3></div>
+        <div class="members"><span class="chip">이새미</span><span class="chip">박건일</span><span class="chip">우동희</span><span class="chip">윤준기</span><span class="chip">홍동우</span></div>
+        <p class="pmeta">좋아하는 장소를 모으고, 친구와 나누는 서비스 · 중간: Notion 기획 페이지</p>
+        <div class="lks"><a class="lk" href="https://jk6841.notion.site/Hotspot-3ea31766f55f819fb749edcdaaf7342d?pvs=74" target="_blank" rel="noopener">중간 제출 페이지 ↗</a><a class="lk ghost" href="https://wsjung-mba-kaist.github.io/team_projects.html#team3" target="_blank" rel="noopener">중간 상세 ↗</a></div>
+      </div>
+      <div class="pcard" id="team4">
+        <div class="pcard-head"><div class="team-no"><b>4</b><span>조</span></div><h3>어디에 열까<br><span class="badge warn">최종 자료 미제출</span></h3></div>
+        <div class="members"><span class="chip">손영훈</span><span class="chip">이재림</span><span class="chip">정윤수</span><span class="chip">김선경</span></div>
+        <p class="pmeta">소규모 창업 입지 리포트 · 중간 발표 때 “GitHub·서비스 주소·Swagger UI는 8주차 발표 시 제출 예정”</p>
+        <div class="lks"><a class="lk" href="https://where-to-open.vercel.app/" target="_blank" rel="noopener">중간 제출 페이지 ↗</a><a class="lk ghost" href="https://wsjung-mba-kaist.github.io/team_projects.html#team4" target="_blank" rel="noopener">중간 상세 ↗</a></div>
+      </div>
+      <div class="pcard" id="team7">
+        <div class="pcard-head"><div class="team-no"><b>7</b><span>조</span></div><h3>금융시장 스트레스 모니터링 대시보드<br><span class="badge warn">최종 자료 미제출</span></h3></div>
+        <div class="members"><span class="chip">김종환</span><span class="chip">김태현</span><span class="chip">서수민</span><span class="chip">정혜지</span><span class="chip">송수원</span></div>
+        <p class="pmeta">환율·금리·주가·VIX 기반 0~100점 스트레스 점수 · 중간: URL 없이 PPTX·DOCX 파일 제출</p>
+        <div class="lks"><a class="lk ghost" href="https://wsjung-mba-kaist.github.io/team_projects.html#team7" target="_blank" rel="noopener">중간 상세 ↗</a></div>
+      </div>
+      <div class="pcard" id="team8">
+        <div class="pcard-head"><div class="team-no"><b>8</b><span>조</span></div><h3>금융규제통합조회 (가칭)<br><span class="badge warn">최종 자료 미제출</span></h3></div>
+        <div class="members"><span class="chip">양정모</span><span class="chip">양지선</span><span class="chip">이수정</span><span class="chip">김한룡</span><span class="chip">최은정</span></div>
+        <p class="pmeta">법령 개정·법령해석·비조치의견 통합 조회 · 중간: GitHub Pages 기획 페이지</p>
+        <div class="lks"><a class="lk" href="https://ellaamode.github.io/teamproject/" target="_blank" rel="noopener">중간 제출 페이지 ↗</a><a class="lk ghost" href="https://wsjung-mba-kaist.github.io/team_projects.html#team8" target="_blank" rel="noopener">중간 상세 ↗</a></div>
+      </div>
+      <div class="pcard" id="team9">
+        <div class="pcard-head"><div class="team-no"><b>9</b><span>조</span></div><h3>오늘 뭐 하지? 같이 갈래?<br><span class="badge warn">최종 자료 미제출</span></h3></div>
+        <div class="members"><span class="chip">이동주</span><span class="chip">주연경</span><span class="chip">박찬휘</span><span class="chip">신지호</span><span class="chip">이영선</span></div>
+        <p class="pmeta">Activity First · 활동 탐색 + 모임 연결 소셜 서비스 · 중간: URL 없이 PDF·HTML 목업 제출</p>
+        <div class="lks"><a class="lk ghost" href="https://wsjung-mba-kaist.github.io/team_projects.html#team9" target="_blank" rel="noopener">중간 상세 ↗</a></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    정리 기준 2026-10-21 10:30 KST (LMS 제출물 기준) · 각 팀 페이지 내용은 이 시각 기준이며, 이후 팀에서 페이지를 수정하면 달라질 수 있습니다.<br>
+    6·10조 발표 파일은 이 문서와 같은 폴더의 <code>attachments/</code>에 있습니다 · 미제출 조는 제출이 확인되면 갱신합니다.
+  </footer>
+</div>
+
+<div class="toast" id="toast">복사되었습니다</div>
+
+<script>
+  (function () {
+    var toast = document.getElementById('toast');
+    var timer;
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(timer);
+      timer = setTimeout(function () { toast.classList.remove('show'); }, 1600);
+    }
+    function copyText(text, btn, msg) {
+      var done = function () {
+        showToast(msg || 'URL이 복사되었습니다');
+        if (btn) {
+          var orig = btn.innerHTML;
+          btn.classList.add('copied');
+          btn.textContent = '복사됨 ✓';
+          setTimeout(function () { btn.classList.remove('copied'); btn.innerHTML = orig; }, 1400);
+        }
+      };
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(done, function () { fallback(text, done); });
+      } else {
+        fallback(text, done);
+      }
+    }
+    function fallback(text, done) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.top = '-1000px';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) { showToast('복사에 실패했습니다. 직접 선택해 복사해 주세요.'); }
+      document.body.removeChild(ta);
+    }
+    document.querySelectorAll('button.copy').forEach(function (b) {
+      b.addEventListener('click', function () { copyText(b.getAttribute('data-url'), b); });
+    });
+
+    /* 주소 전체 복사 */
+    var here = location.href.replace(/[#?].*$/, '').replace(/[^\/]*$/, '');
+    var all = document.getElementById('copyAll');
+    if (all) {
+      all.addEventListener('click', function () {
+        var lines = [
+          '[1조 숨은여행지도]',
+          '발표: https://kujae.github.io/hidden-travel-map/',
+          '서비스: https://hidden-travel-map.vercel.app/',
+          'GitHub: https://github.com/KuJae/hidden-travel-map',
+          'Swagger: https://hidden-travel-map-api.onrender.com/docs',
+          '',
+          '[2조 KHMI]',
+          '발표: https://www.khmi.kr/presentation.html#intro',
+          '서비스: https://www.khmi.kr/',
+          'GitHub: https://github.com/junoopark/realestate',
+          'Swagger: https://www.khmi.kr/api/docs',
+          '',
+          '[5조 HINDSIGHT]',
+          '발표: https://hindsight-gold.vercel.app/',
+          '서비스: https://hindsight-web.vercel.app/',
+          'GitHub: https://github.com/insung1939/hindsight',
+          'Swagger: https://hindsight-api-edab.onrender.com/docs',
+          '',
+          '[6조 fundflow]',
+          '발표: ' + here + 'attachments/team06_fundflow_week8.pdf',
+          '서비스: https://fund-flow-frontend-six.vercel.app/',
+          'GitHub: https://github.com/JMC-patriot/Fund-Flow',
+          'Swagger: https://fundflow-api-kr3i.onrender.com/docs',
+          '',
+          '[10조 camp:on]',
+          '발표: ' + here + 'attachments/team10_camp-on_presentation.html',
+          '서비스: https://camping-weather-planner.vercel.app/',
+          'GitHub: https://github.com/vctr7/camping-weather-planner',
+          'Swagger: https://camping-weather-api.onrender.com/docs'
+        ];
+        copyText(lines.join('\n'), null, '5개 조 주소가 복사되었습니다');
+      });
+    }
+
+    /* 발표 전 Render 서버 깨우기 */
+    var warmBtn = document.getElementById('warmBtn');
+    if (warmBtn) {
+      warmBtn.addEventListener('click', function () {
+        var cells = document.querySelectorAll('[data-warm]');
+        var left = cells.length;
+        warmBtn.disabled = true;
+        cells.forEach(function (el) {
+          var url = el.getAttribute('data-warm');
+          var t0 = Date.now();
+          el.className = 'wstate run';
+          el.textContent = '깨우는 중…';
+          var tick = setInterval(function () {
+            el.textContent = '깨우는 중… ' + Math.round((Date.now() - t0) / 1000) + '초';
+          }, 1000);
+          var ctrl = ('AbortController' in window) ? new AbortController() : null;
+          var kill = setTimeout(function () { if (ctrl) ctrl.abort(); }, 90000);
+          fetch(url + (url.indexOf('?') < 0 ? '?' : '&') + 'warm=' + t0, { mode: 'no-cors', cache: 'no-store', signal: ctrl ? ctrl.signal : undefined })
+            .then(function () {
+              var s = Math.max(1, Math.round((Date.now() - t0) / 1000));
+              el.className = 'wstate ok';
+              el.textContent = '응답 확인 · ' + s + '초' + (s >= 10 ? ' (잠들어 있었음)' : '');
+            })
+            .catch(function () {
+              el.className = 'wstate fail';
+              el.textContent = '응답 없음 · 주소를 직접 열어 확인';
+            })
+            .then(function () {
+              clearInterval(tick); clearTimeout(kill);
+              left -= 1;
+              if (left === 0) { warmBtn.disabled = false; showToast('서버 깨우기 요청을 마쳤습니다'); }
+            });
+        });
+      });
+    }
+  })();
+</script>
+</body>
+</html>
