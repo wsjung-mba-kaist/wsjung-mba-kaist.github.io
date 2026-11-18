@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>텍스트 임베딩 모델 비교 조사 쇼릴</title>
+<style>
+/* 레이아웃: 영상이 주인공인 한 화면. 위에 영상, 아래에 장면 목록(누르면 그 장면으로 이동). */
+:root{
+  color-scheme: dark;
+  --bg:#080d19; --panel:#111a2e; --line:#22304d;
+  --ink:#f3f6fb; --ink-2:#9fb0c9; --ink-3:#62728d;
+  --blue:#4d9bff; --blue-2:#2a6fe0; --amber:#ffc94d;
+  --font:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.6;word-break:keep-all;overflow-wrap:anywhere;letter-spacing:-.01em}
+.wrap{max-width:1120px;margin:0 auto;padding:40px 20px 72px}
+.kicker{font-size:14px;font-weight:600;color:var(--blue)}
+h1{font-size:clamp(24px,4vw,36px);line-height:1.3;font-weight:800;margin:6px 0 0;text-wrap:balance}
+.meta{color:var(--ink-2);font-size:14px;margin-top:6px}
+.player{margin-top:24px;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#000}
+video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#000}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px}
+.btn{font:inherit;font-size:14px;font-weight:600;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:8px 16px;cursor:pointer}
+.btn:hover{border-color:var(--blue)}
+.btn[aria-pressed="true"]{background:var(--blue-2);border-color:var(--blue-2)}
+.now{margin-left:auto;font-size:14px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+h2{font-size:18px;font-weight:700;margin:36px 0 12px}
+.chapters{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.ch{display:grid;grid-template-columns:64px 150px 1fr;gap:6px 16px;align-items:baseline;width:100%;text-align:left;font:inherit;color:inherit;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px;cursor:pointer}
+.ch:hover{border-color:var(--blue)}
+.ch .t{font-size:14px;font-weight:700;color:var(--blue);font-variant-numeric:tabular-nums}
+.ch .n{font-size:16px;font-weight:700}
+.ch .s{font-size:14.5px;color:var(--ink-2)}
+.ch[aria-current="true"]{border-color:var(--blue);background:#14213c}
+.ch[aria-current="true"] .n{color:var(--amber)}
+@media (max-width:700px){.ch{grid-template-columns:56px 1fr}.ch .s{grid-column:1 / -1}}
+.foot{margin-top:28px;font-size:13.5px;color:var(--ink-3)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">금융 빅데이터 분석 실습 · 금W2 개별 과제</div>
+  <h1>텍스트 임베딩 모델 비교 조사 쇼릴</h1>
+  <div class="meta">60초 · 보고서 27편 종합</div>
+
+  <div class="player">
+    <video id="v" src="showreel.mp4" poster="poster.jpg" controls playsinline preload="metadata"></video>
+  </div>
+
+  <div class="bar">
+    <button class="btn" type="button" id="restart">처음부터 보기</button>
+    <button class="btn" type="button" id="loop" aria-pressed="false">반복 재생</button>
+    <button class="btn" type="button" data-rate="0.75" aria-pressed="false">0.75배</button>
+    <button class="btn" type="button" data-rate="1" aria-pressed="true">1배</button>
+    <button class="btn" type="button" data-rate="1.25" aria-pressed="false">1.25배</button>
+    <span class="now" id="now">0:00 / 1:00</span>
+  </div>
+
+  <h2>장면 바로 가기</h2>
+  <ol class="chapters" id="chapters">
+    <li><button class="ch" type="button" data-t="0"><span class="t">0:00</span><span class="n">인트로</span><span class="s">27편의 임베딩 모델 비교 보고서를 60초로 정리합니다.</span></button></li>
+    <li><button class="ch" type="button" data-t="6"><span class="t">0:06</span><span class="n">어떤 모델을 조사했나</span><span class="s">추가로 조사한 모델은 12종. 그중 KURE-v3를 25명이 골랐습니다.</span></button></li>
+    <li><button class="ch" type="button" data-t="14.2"><span class="t">0:14</span><span class="n">써 보고 싶은 모델</span><span class="s">27명 중 21명, 78%가 KURE-v3를 선택했습니다.</span></button></li>
+    <li><button class="ch" type="button" data-t="22.4"><span class="t">0:22</span><span class="n">왜 그 모델인가</span><span class="s">사내 실행과 한국어 검색 성능. 성능보다 데이터가 어디서 처리되는지가 먼저였습니다.</span></button></li>
+    <li><button class="ch" type="button" data-t="34.9"><span class="t">0:35</span><span class="n">모델은 무엇이 다른가</span><span class="s">내 PC 실행과 외부 API, 텍스트 전용과 멀티모달. 차이는 두 축으로 모였습니다.</span></button></li>
+    <li><button class="ch" type="button" data-t="45.9"><span class="t">0:46</span><span class="n">금융에서 어떻게 쓸까</span><span class="s">활용 1순위는 상품설명서·약관 검색. 표현이 달라도 뜻이 같은 조항을 찾습니다.</span></button></li>
+    <li><button class="ch" type="button" data-t="53.7"><span class="t">0:54</span><span class="n">정리</span><span class="s">한국어, 사내 실행, 긴 문서. 27명이 고른 기준입니다.</span></button></li>
+  </ol>
+
+  <p class="foot">영상이 보이지 않으면 이 파일과 showreel.mp4가 같은 폴더에 있는지 확인하세요. 키보드: 스페이스 재생·정지, ← → 5초 이동.</p>
+</div>
+
+<script>
+const v = document.getElementById('v');
+const chs = [...document.querySelectorAll('.ch')];
+const now = document.getElementById('now');
+const fmt = s => Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+
+chs.forEach(b => b.addEventListener('click', () => {
+  v.currentTime = parseFloat(b.dataset.t);
+  v.play().catch(() => {});
+}));
+
+function sync(){
+  const t = v.currentTime;
+  let cur = 0;
+  chs.forEach((b, i) => { if (t >= parseFloat(b.dataset.t) - 0.05) cur = i; });
+  chs.forEach((b, i) => b.setAttribute('aria-current', i === cur ? 'true' : 'false'));
+  now.textContent = fmt(t) + ' / ' + fmt(v.duration || 60);
+}
+v.addEventListener('timeupdate', sync);
+v.addEventListener('loadedmetadata', sync);
+sync();
+
+document.getElementById('restart').addEventListener('click', () => { v.currentTime = 0; v.play().catch(() => {}); });
+const loopBtn = document.getElementById('loop');
+loopBtn.addEventListener('click', () => { v.loop = !v.loop; loopBtn.setAttribute('aria-pressed', v.loop ? 'true' : 'false'); });
+const rateBtns = [...document.querySelectorAll('[data-rate]')];
+rateBtns.forEach(b => b.addEventListener('click', () => {
+  v.playbackRate = parseFloat(b.dataset.rate);
+  rateBtns.forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
+}));
+
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'BUTTON' || e.target === v) return;
+  if (e.code === 'Space'){ e.preventDefault(); v.paused ? v.play().catch(() => {}) : v.pause(); }
+  if (e.code === 'ArrowRight') v.currentTime = Math.min((v.duration || 60), v.currentTime + 5);
+  if (e.code === 'ArrowLeft') v.currentTime = Math.max(0, v.currentTime - 5);
+});
+</script>
+</body>
+</html>
