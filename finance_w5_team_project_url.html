@@ -132,6 +132,7 @@ h2 { font-size: 17px; font-weight: 700; }
   gap: 2px;
 }
 .flag.is-bad { border-left-color: var(--bad); }
+.flag.is-info { border-left-color: var(--accent); }
 .flag strong { font-weight: 600; }
 .flag p { color: var(--ink-soft); font-size: 14px; max-width: 70ch; }
 
@@ -250,7 +251,7 @@ h2 { font-size: 17px; font-weight: 700; }
   <header class="head">
     <p class="course">BAF60086 금융빅데이터분석실습 · 5주차 팀 프로젝트</p>
     <h1>발표 URL · 프로토타입 URL 제출 현황</h1>
-    <p class="basis">2026년 11월 25일 12:05에 LMS에서 내려받은 제출물 기준 · 팀당 발표 5~6분</p>
+    <p class="basis">2026년 11월 25일 17:03에 LMS에서 내려받은 제출물 기준 · 팀당 발표 5~6분</p>
   </header>
 
   <div class="stats">
@@ -272,6 +273,20 @@ h2 { font-size: 17px; font-weight: 700; }
     </div>
   </div>
 
+  <section aria-labelledby="h-changes">
+    <h2 id="h-changes">12:05 확인 이후 달라진 점</h2>
+    <ul class="flags">
+      <li class="flag is-info">
+        <strong>새 제출 1건: 5조 김태현</strong>
+        <p>같은 조 강현경이 이미 낸 것과 발표 URL, 프로토타입 URL이 모두 같습니다. 조별 접수 현황에는 변화가 없습니다.</p>
+      </li>
+      <li class="flag is-info">
+        <strong>나머지는 그대로</strong>
+        <p>1조, 2조, 4조, 6조의 제출 내용은 바뀌지 않았고, 3조는 여전히 제출이 없습니다. 2조 발표 페이지의 조 번호 표기도 17시 재확인 때 그대로였습니다.</p>
+      </li>
+    </ul>
+  </section>
+
   <section aria-labelledby="h-flags">
     <h2 id="h-flags">확인이 필요한 사항</h2>
     <ul class="flags">
@@ -281,7 +296,7 @@ h2 { font-size: 17px; font-weight: 700; }
       </li>
       <li class="flag">
         <strong>2조 발표 페이지에 조 번호가 5조로 적혀 있음</strong>
-        <p>제출자 조인성은 2조인데, 발표 페이지의 제목과 본문 두 곳에 모두 5조로 표기되어 있습니다. 조 편성이 바뀐 것인지, 표기 실수인지 확인이 필요합니다.</p>
+        <p>제출자 조인성은 2조인데, 발표 페이지의 제목과 본문에 모두 5조로 표기되어 있습니다. 17시에 다시 열어 보았을 때도 같았습니다. 조 편성이 바뀐 것인지, 표기 실수인지 확인이 필요합니다.</p>
       </li>
       <li class="flag">
         <strong>1조 발표 URL이 프로토타입과 다른 주소를 사용</strong>
@@ -374,7 +389,7 @@ h2 { font-size: 17px; font-weight: 700; }
         <div class="who">
           <p class="project">CallWatch</p>
           <p class="topic">미국 상장사의 어닝콜 가이던스를 이후 SEC 실적과 비교해 회사별 가이던스 신뢰도를 채점하는 서비스</p>
-          <p class="members"><b>강현경</b><span class="tag">제출</span>, 김태현, 송수원, 이새미</p>
+          <p class="members"><b>강현경</b><span class="tag">제출</span>, <b>김태현</b><span class="tag">제출</span>, 송수원, 이새미</p>
         </div>
         <div class="links">
           <div class="link">
@@ -387,7 +402,7 @@ h2 { font-size: 17px; font-weight: 700; }
           </div>
         </div>
         <span class="pill ok">제출 완료</span>
-        <p class="note info">발표 페이지 안내에 따르면 프로토타입은 첫 접속 때 서버가 깨어나는 데 30초쯤 걸릴 수 있습니다. 발표 직전에 미리 열어 두는 편이 좋습니다.</p>
+        <p class="note info">강현경, 김태현 두 명이 같은 URL을 각각 제출했습니다. 발표 페이지 안내에 따르면 프로토타입은 첫 접속 때 서버가 깨어나는 데 30초쯤 걸릴 수 있습니다. 발표 직전에 미리 열어 두는 편이 좋습니다.</p>
       </article>
 
       <article class="team">
@@ -417,8 +432,8 @@ h2 { font-size: 17px; font-weight: 700; }
   <section class="method" aria-labelledby="h-method">
     <h2 id="h-method">확인 방법과 한계</h2>
     <ul>
-      <li>제출 여부는 LMS 과제 제출물 묶음(온라인 텍스트 5건)과 알려 주신 조 편성을 대조해 판단했습니다. 제출물에 제출 시각은 들어 있지 않습니다.</li>
-      <li>링크 10개는 각각 한 번씩 자동으로 불러와 로그인 화면이나 404가 아닌지 확인했습니다. 모두 권한 요청 없이 응답했습니다.</li>
+      <li>제출 여부는 LMS 과제 제출물 묶음(온라인 텍스트 6건, 5개 조)과 알려 주신 조 편성을 대조해 판단했습니다. 제출물에 제출 시각은 들어 있지 않습니다.</li>
+      <li>링크 10개는 12시경에 각각 한 번씩 자동으로 불러와 로그인 화면이나 404가 아닌지 확인했습니다. 모두 권한 요청 없이 응답했습니다. 17시에는 주소가 바뀐 조가 없어 2조 발표 페이지만 다시 열어 보았습니다.</li>
       <li><b>본문 확인</b>은 페이지 내용까지 읽힌 링크, <b>제목만 확인</b>은 화면이 스크립트로 그려져 제목과 소개 문구까지만 읽힌 링크입니다. 뒤쪽 링크들은 발표 전에 시크릿 창에서 한 번 열어 보시길 권합니다.</li>
       <li>프로젝트 한 줄 소개는 각 팀 페이지의 문구를 요약한 것입니다.</li>
     </ul>
